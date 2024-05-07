@@ -21,7 +21,6 @@ public class Cadastro extends JFrame {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.white);//muda a cor do painel
 
-
         JTextField campoChave = new JTextField();
         campoChave.setPreferredSize(new Dimension(250, 25));
 
@@ -30,7 +29,6 @@ public class Cadastro extends JFrame {
 
         JTextField campoNome = new JTextField();
         campoNome.setPreferredSize(new Dimension(415, 25));
-
 
         JTextField campoCPF = new JTextField();
         campoCPF.setPreferredSize(new Dimension(200, 25));
@@ -59,7 +57,6 @@ public class Cadastro extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, 5, 5, 235);
         panel.add(textoChave, gbc);
-
 
         gbc.insets = new Insets(0, 5, 40,100);
         gbc.gridy = 1;
@@ -107,7 +104,6 @@ public class Cadastro extends JFrame {
         panel.add(botaoCancelar, gbc);
         gbc.insets = new Insets(40, 120, 5, 5);
         panel.add(botaoCadastrar, gbc);
-
 
         add(panel, BorderLayout.CENTER);
     }
