@@ -56,6 +56,7 @@ public class Cadastro{
         botaoAplicar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
         botaoAplicar.setBackground(new Color(0, 30, 253));
         botaoAplicar.setForeground(new Color(255, 255, 255));
+        botaoAplicar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
         campoNome = new JTextField();
@@ -82,12 +83,14 @@ public class Cadastro{
         botaoCancelar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
         botaoCancelar.setForeground(new Color (118, 118, 118));
         botaoCancelar.setBackground(new Color (255, 255, 255));
+        botaoCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         botaoCadastrar = new JButton("Cadastrar");
         botaoCadastrar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
         botaoCadastrar.setForeground(new Color (230, 230, 230));
         botaoCadastrar.setBackground(new Color (255, 255, 255));
         botaoCadastrar.setEnabled(false);
+        botaoCadastrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
         GridBagConstraints gbc = new GridBagConstraints();

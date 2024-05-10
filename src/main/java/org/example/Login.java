@@ -4,7 +4,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Login extends JFrame {
     JButton botaoEntrar;
@@ -37,7 +38,17 @@ public class Login extends JFrame {
 
         JLabel esqueciSenha = new JLabel("<html><u>Esqueci minha senha</u></html>");
         esqueciSenha.setForeground(new Color(118, 118, 118));
-        esqueciSenha.setFont(new Font("Roboto", Font.PLAIN, 10));
+        esqueciSenha.setFont(new Font("Roboto", Font.BOLD, 10));
+        esqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        // Adicionando um ouvinte de evento de clique ao JLabel esqueciSenha
+        esqueciSenha.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Cliquei em 'Esqueci minha senha'");
+                // Aqui você pode adicionar a lógica para lidar com o clique em 'Esqueci minha senha'
+            }
+        });
 
         JTextField campoLogin = new JTextField();
         campoLogin.setPreferredSize(new Dimension(300, 25));
@@ -49,6 +60,7 @@ public class Login extends JFrame {
         botaoEntrar.setBorder(new LineBorder(new Color(0, 30, 253)));
         botaoEntrar.setBackground(new Color(0, 30, 253));
         botaoEntrar.setForeground(new Color(255, 255, 255));
+        botaoEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
         botaoCadastrar = new JButton("Cadastre-se");
@@ -56,6 +68,7 @@ public class Login extends JFrame {
         botaoCadastrar.setForeground(new Color (118, 118, 118));
         botaoCadastrar.setBackground(new Color (255, 255, 255));
         botaoCadastrar.setBorder(new LineBorder(new Color (170, 170, 170)));
+        botaoCadastrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         GridBagConstraints gbc = new GridBagConstraints(); // ajuda na posição dos componentes
         gbc.gridy = 0;
@@ -132,7 +145,6 @@ public class Login extends JFrame {
     public void Logar(ActionEvent e) {
         System.out.println("Clicando logar");
     }
-
 
 }
 
