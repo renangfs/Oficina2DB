@@ -46,8 +46,15 @@ public class Login extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Cliquei em 'Esqueci minha senha'");
-                // Aqui você pode adicionar a lógica para lidar com o clique em 'Esqueci minha senha'
+                getContentPane().removeAll(); // Remove todos os componentes da janela
+                EsqueciSenha esqueciSenha = new EsqueciSenha(new MouseAdapter(){}); // Crie uma instância de EsqueciSenha
+                JPanel painelEsqueciSenha = esqueciSenha.getPainelEsqueciSenha(); // Obtenha o painel de EsqueciSenha
+                add(painelEsqueciSenha, BorderLayout.CENTER); // Adicione o painel de EsqueciSenha ao centro da janela
+                revalidate(); // Revalide o layout da janela após adicionar os novos componentes
+                repaint(); // Redesenha a janela
             }
+
+
         });
 
         JTextField campoLogin = new JTextField();
