@@ -2,14 +2,18 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
-public class Cadastro extends JFrame {
-    public Cadastro(){
+public class Cadastro{
+    JButton botaoCancelar;
+    JButton botaoCadastrar;
+    JPanel panelCadastro;
+    Login login;
 
-        setSize(1200,800);//Tamanho de abertura
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(1200,800));//Tamanho mínimo da janela
-        setLocationRelativeTo(null);
+    public Cadastro(Login login) {
+        this.login = login;
+        panelCadastro = new JPanel(new GridBagLayout());
+        panelCadastro.setBackground(Color.white);//muda a cor do painel
 
         JLabel textoChave = new JLabel("Chave de cadastro:");
         JLabel textoNome = new JLabel("Nome:");
@@ -17,9 +21,6 @@ public class Cadastro extends JFrame {
         JLabel textoTelefone = new JLabel("Telefone:");
         JLabel textoEmail = new JLabel("Email:");
         JLabel textoSenha = new JLabel("Senha:");
-
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(Color.white);//muda a cor do painel
 
         JTextField campoChave = new JTextField();
         campoChave.setPreferredSize(new Dimension(250, 25));
@@ -42,10 +43,10 @@ public class Cadastro extends JFrame {
         JTextField campoSenha = new JTextField();
         campoSenha.setPreferredSize(new Dimension(200, 25));
 
-        JButton botaoCancelar = new JButton("Cancelar");
+        botaoCancelar = new JButton("Cancelar");
         botaoCancelar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
 
-        JButton botaoCadastrar = new JButton("Cadastrar");
+        botaoCadastrar = new JButton("Cadastrar");
         botaoCadastrar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -56,55 +57,68 @@ public class Cadastro extends JFrame {
         // y = Baixo  x = Direita
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, 5, 5, 235);
-        panel.add(textoChave, gbc);
+        panelCadastro.add(textoChave, gbc);
 
-        gbc.insets = new Insets(0, 5, 40,100);
+        gbc.insets = new Insets(0, 5, 40, 100);
         gbc.gridy = 1;
-        panel.add(campoChave, gbc);
-        gbc.gridx = 1;//direita
+        panelCadastro.add(campoChave, gbc);
+        gbc.gridx = 1;
         gbc.insets = new Insets(0, 30, 40, 5);
-        panel.add(botaoAplicar, gbc);
+        panelCadastro.add(botaoAplicar, gbc);
 
         gbc.insets = new Insets(0, 8, 3, 5);
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.gridwidth = 2;
-        gbc.gridx = 0;//direita
+        gbc.gridx = 0;
         gbc.gridy = 2;
-        panel.add(textoNome, gbc);
+        panelCadastro.add(textoNome, gbc);
         gbc.gridy = 3;
         gbc.insets = new Insets(0, 8, 10, 5);
-        panel.add(campoNome, gbc);
+        panelCadastro.add(campoNome, gbc);
 
         gbc.gridwidth = 1;
         gbc.insets = new Insets(0, 8, 3, 5);
         gbc.gridy = 4;
-        panel.add(textoCpf, gbc);
+        panelCadastro.add(textoCpf, gbc);
         gbc.gridx = 1;
-        panel.add(textoTelefone, gbc);
+        panelCadastro.add(textoTelefone, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.insets = new Insets(0, 8, 10, 5);
-        panel.add(campoCPF, gbc);
+        panelCadastro.add(campoCPF, gbc);
         gbc.gridx = 1;
-        panel.add(campoTelefone, gbc);
+        panelCadastro.add(campoTelefone, gbc);
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.insets = new Insets(0, 8, 3, 5);
-        panel.add(textoEmail, gbc);
+        panelCadastro.add(textoEmail, gbc);
         gbc.gridx = 1;
-        panel.add(textoSenha, gbc);
+        panelCadastro.add(textoSenha, gbc);
         gbc.gridx = 0;
         gbc.gridy = 7;
-        panel.add(campoEmail, gbc);
+        panelCadastro.add(campoEmail, gbc);
         gbc.gridx = 1;
-        panel.add(campoSenha, gbc);
+        panelCadastro.add(campoSenha, gbc);
 
         gbc.insets = new Insets(40, 20, 5, 5);
-        gbc.gridy = 8;//direita
-        panel.add(botaoCancelar, gbc);
+        gbc.gridy = 8;
+        panelCadastro.add(botaoCancelar, gbc);
         gbc.insets = new Insets(40, 120, 5, 5);
-        panel.add(botaoCadastrar, gbc);
+        panelCadastro.add(botaoCadastrar, gbc);
 
-        add(panel, BorderLayout.CENTER);
+        botaoCancelar.addActionListener(this::Cancelar);
+        botaoCadastrar.addActionListener(this::Cadastrar);
+    }
+
+    public JPanel getPanelCadastro() {
+        return panelCadastro;
+    }
+
+    public void Cancelar(ActionEvent e) {
+        login.voltarLogin();
+    }
+
+    public void Cadastrar(ActionEvent e){
+        System.out.println("Cadastrar");
     }
 }
