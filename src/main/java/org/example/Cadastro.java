@@ -3,6 +3,10 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Objects;
 
 public class Cadastro{
     JButton botaoCancelar;
@@ -10,44 +14,81 @@ public class Cadastro{
     JPanel panelCadastro;
     Login login;
 
+    JTextField campoChave;
+    JTextField campoNome;
+    JTextField campoCPF;
+    JTextField campoTelefone;
+    JTextField campoEmail;
+    JTextField campoSenha;
+
+    JLabel textoChave;
+
+    JButton botaoAplicar;
+
     public Cadastro(Login login) {
         this.login = login;
         panelCadastro = new JPanel(new GridBagLayout());
         panelCadastro.setBackground(Color.white);//muda a cor do painel
 
-        JLabel textoChave = new JLabel("Chave de cadastro:");
+        textoChave = new JLabel("Chave de cadastro:");
+        textoChave.setForeground(new Color(118, 118, 118));
+        textoChave.setFont(new Font("Roboto", Font.BOLD, 12));
         JLabel textoNome = new JLabel("Nome:");
+        textoNome.setForeground(new Color(118, 118, 118));
+        textoNome.setFont(new Font("Roboto", Font.PLAIN, 12));
         JLabel textoCpf = new JLabel("CPF:");
+        textoCpf.setForeground(new Color(118, 118, 118));
+        textoCpf.setFont(new Font("Roboto", Font.PLAIN, 12));
         JLabel textoTelefone = new JLabel("Telefone:");
+        textoTelefone.setForeground(new Color(118, 118, 118));
+        textoTelefone.setFont(new Font("Roboto", Font.PLAIN, 12));
         JLabel textoEmail = new JLabel("Email:");
+        textoEmail.setForeground(new Color(118, 118, 118));
+        textoEmail.setFont(new Font("Roboto", Font.PLAIN, 12));
         JLabel textoSenha = new JLabel("Senha:");
+        textoSenha.setForeground(new Color(118, 118, 118));
+        textoSenha.setFont(new Font("Roboto", Font.PLAIN, 12));
 
-        JTextField campoChave = new JTextField();
+        campoChave = new JTextField();
         campoChave.setPreferredSize(new Dimension(250, 25));
 
-        JButton botaoAplicar = new JButton("Aplicar");
+        botaoAplicar = new JButton("Aplicar");
         botaoAplicar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
+        botaoAplicar.setBackground(new Color(0, 30, 253));
+        botaoAplicar.setForeground(new Color(255, 255, 255));
 
-        JTextField campoNome = new JTextField();
+
+        campoNome = new JTextField();
         campoNome.setPreferredSize(new Dimension(415, 25));
+        campoNome.setEnabled(false);
 
-        JTextField campoCPF = new JTextField();
+        campoCPF = new JTextField();
         campoCPF.setPreferredSize(new Dimension(200, 25));
+        campoCPF.setEnabled(false);
 
-        JTextField campoTelefone = new JTextField();
+        campoTelefone = new JTextField();
         campoTelefone.setPreferredSize(new Dimension(200, 25));
+        campoTelefone.setEnabled(false);
 
-        JTextField campoEmail = new JTextField();
+        campoEmail = new JTextField();
         campoEmail.setPreferredSize(new Dimension(200, 25));
+        campoEmail.setEnabled(false);
 
-        JTextField campoSenha = new JTextField();
+        campoSenha = new JTextField();
         campoSenha.setPreferredSize(new Dimension(200, 25));
+        campoSenha.setEnabled(false);
 
         botaoCancelar = new JButton("Cancelar");
         botaoCancelar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
+        botaoCancelar.setForeground(new Color (118, 118, 118));
+        botaoCancelar.setBackground(new Color (255, 255, 255));
 
         botaoCadastrar = new JButton("Cadastrar");
         botaoCadastrar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
+        botaoCadastrar.setForeground(new Color (230, 230, 230));
+        botaoCadastrar.setBackground(new Color (255, 255, 255));
+        botaoCadastrar.setEnabled(false);
+
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 0;
@@ -63,7 +104,7 @@ public class Cadastro{
         gbc.gridy = 1;
         panelCadastro.add(campoChave, gbc);
         gbc.gridx = 1;
-        gbc.insets = new Insets(0, 30, 40, 5);
+        gbc.insets = new Insets(0, 50, 40, 5);
         panelCadastro.add(botaoAplicar, gbc);
 
         gbc.insets = new Insets(0, 8, 3, 5);
@@ -106,6 +147,7 @@ public class Cadastro{
         gbc.insets = new Insets(40, 120, 5, 5);
         panelCadastro.add(botaoCadastrar, gbc);
 
+        botaoAplicar.addActionListener(this::Aplicar);
         botaoCancelar.addActionListener(this::Cancelar);
         botaoCadastrar.addActionListener(this::Cadastrar);
     }
@@ -117,8 +159,44 @@ public class Cadastro{
     public void Cancelar(ActionEvent e) {
         login.voltarLogin();
     }
+    public void Aplicar(ActionEvent e) {
+        if (Objects.equals(campoChave.getText(), "123")) {
 
-    public void Cadastrar(ActionEvent e){
-        System.out.println("Cadastrar");
+            botaoAplicar.setForeground(new Color (184, 207, 229));
+            botaoAplicar.setBackground(new Color (255, 255, 255));
+
+            botaoCadastrar.setBackground(new Color(0, 30, 253));
+            botaoCadastrar.setForeground(new Color(255, 255, 255));
+
+            botaoAplicar.setEnabled(false);
+            campoChave.setEnabled(false);
+            botaoCadastrar.setEnabled(true);
+            campoNome.setEnabled(true);
+            campoCPF.setEnabled(true);
+            campoTelefone.setEnabled(true);
+            campoEmail.setEnabled(true);
+            campoSenha.setEnabled(true);
+
+            JOptionPane.showMessageDialog(null, "Chave aplicada com sucesso!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Chave incorreta", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public void Cadastrar(ActionEvent e) {
+        try (Connection connection = ConnectionFactory.recuperarConexao()) {
+            String sql = "INSERT INTO funcionario (nome, cpf, telefone, email, senha) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, campoNome.getText());
+            statement.setString(2, campoCPF.getText());
+            statement.setString(3, campoTelefone.getText());
+            statement.setString(4, campoEmail.getText());
+            statement.setString(5, campoSenha.getText());
+            statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+            login.voltarLogin(); // Voltar para a tela de login após cadastrar
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário: " + ex.getMessage());
+        }
+
     }
 }

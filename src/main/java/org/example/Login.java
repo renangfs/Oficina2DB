@@ -1,10 +1,10 @@
 package org.example;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 public class Login extends JFrame {
     JButton botaoEntrar;
@@ -28,17 +28,16 @@ public class Login extends JFrame {
         painelLogin.setBackground(Color.WHITE);
 
         JLabel textoLogin = new JLabel("Login:");
-        JLabel textoSenha = new JLabel("Senha:");
-        JLabel esqueciSenha = new JLabel("<html><u>Esqueci minha senha</u></html>");
+        textoLogin.setForeground(new Color(118, 118, 118));
+        textoLogin.setFont(new Font("Roboto", Font.BOLD, 12));
 
-        // Adicionando um ouvinte de evento de clique ao JLabel esqueciSenha
-        esqueciSenha.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Cliquei em 'Esqueci minha senha'");
-                // Aqui você pode adicionar a lógica para lidar com o clique em 'Esqueci minha senha'
-            }
-        });
+        JLabel textoSenha = new JLabel("Senha:");
+        textoSenha.setForeground(new Color(118, 118, 118));
+        textoSenha.setFont(new Font("Roboto", Font.BOLD, 12));
+
+        JLabel esqueciSenha = new JLabel("<html><u>Esqueci minha senha</u></html>");
+        esqueciSenha.setForeground(new Color(118, 118, 118));
+        esqueciSenha.setFont(new Font("Roboto", Font.PLAIN, 10));
 
         JTextField campoLogin = new JTextField();
         campoLogin.setPreferredSize(new Dimension(300, 25));
@@ -47,9 +46,16 @@ public class Login extends JFrame {
 
         botaoEntrar = new JButton("Entrar");
         botaoEntrar.setPreferredSize(new Dimension(300, 30));
+        botaoEntrar.setBorder(new LineBorder(new Color(0, 30, 253)));
+        botaoEntrar.setBackground(new Color(0, 30, 253));
+        botaoEntrar.setForeground(new Color(255, 255, 255));
+
 
         botaoCadastrar = new JButton("Cadastre-se");
         botaoCadastrar.setPreferredSize(new Dimension(300, 30));
+        botaoCadastrar.setForeground(new Color (118, 118, 118));
+        botaoCadastrar.setBackground(new Color (255, 255, 255));
+        botaoCadastrar.setBorder(new LineBorder(new Color (170, 170, 170)));
 
         GridBagConstraints gbc = new GridBagConstraints(); // ajuda na posição dos componentes
         gbc.gridy = 0;
@@ -127,10 +133,6 @@ public class Login extends JFrame {
         System.out.println("Clicando logar");
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Login login = new Login();
-            login.setVisible(true);
-        });
-    }
+
 }
+
