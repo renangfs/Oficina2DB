@@ -24,6 +24,9 @@ public class EsqueciSenha {
     JButton botaoAplicar;
     public EsqueciSenha(Login login){
         this.login = login;
+
+
+
         painelEsqueciSenha = new JPanel(new GridBagLayout());
         painelEsqueciSenha.setBackground(Color.white);//muda a cor do painel
 
@@ -149,7 +152,7 @@ public class EsqueciSenha {
     }
 
     public void Cancelar(ActionEvent e) {
-        login.voltarLoginEsqueciSenha();
+        login.voltarLogin();
         System.out.println("Cancelar");
     }
     public void Aplicar(ActionEvent e) {
@@ -184,7 +187,7 @@ public class EsqueciSenha {
             statement.setString(5, campoConfirmarSenha.getText());
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
-            login.voltarLoginEsqueciSenha(); // Voltar para a tela de login após cadastrar
+            login.voltarLogin(); // Voltar para a tela de login após cadastrar
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário: " + ex.getMessage());
         }
