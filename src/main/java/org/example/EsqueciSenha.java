@@ -1,6 +1,7 @@
 package org.example;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -22,13 +23,55 @@ public class EsqueciSenha {
     JLabel textoChave;
 
     JButton botaoAplicar;
-    public EsqueciSenha(Login login){
+
+    public EsqueciSenha(Login login) {
         this.login = login;
 
+        // Criando modelo de tabela com colunas de nome, idade e número de telefone
+        String[] colunas = {"ID", "Nome", "Email", "Senha"};
+        DefaultTableModel model = new DefaultTableModel(colunas, 0);
 
+        // Adicionando dados à tabela (podem ser substituídos por dados reais)
+        Object[][] dados = {
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
+                {31, "João", "renangfs77@gmail.com", "sddsfa"},
+                {32, "maria", "renangfs77@gmail.com", "283sda2"}
+        };
 
+        // Adicionando os dados ao modelo da tabela
+        for (Object[] linha : dados) {
+            model.addRow(linha);
+        }
+
+        // Criando a tabela com o modelo criado
+        JTable table = new JTable(model);
+
+        // Adicionando a tabela a um painel de rolagem para permitir a rolagem caso a tabela seja muito grande
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setPreferredSize(new Dimension(400, 250));
+
+        // Adicionando o painel de rolagem à janela
         painelEsqueciSenha = new JPanel(new GridBagLayout());
-        painelEsqueciSenha.setBackground(Color.white);//muda a cor do painel
+        painelEsqueciSenha.setBackground(Color.white);
+
 
         textoChave = new JLabel("Chave de atualização de senha:");
         textoChave.setForeground(new Color(118, 118, 118));
@@ -56,31 +99,29 @@ public class EsqueciSenha {
 
 
         campoID = new JTextField();
-        campoID.setPreferredSize(new Dimension(200, 25));
+        campoID.setPreferredSize(new Dimension(220, 25));
         campoID.setEnabled(false);
 
 
-
         campoNovaSenha = new JTextField();
-        campoNovaSenha.setPreferredSize(new Dimension(200, 25));
+        campoNovaSenha.setPreferredSize(new Dimension(220, 25));
         campoNovaSenha.setEnabled(false);
 
 
-
         campoConfirmarSenha = new JTextField();
-        campoConfirmarSenha.setPreferredSize(new Dimension(200, 25));
+        campoConfirmarSenha.setPreferredSize(new Dimension(220, 25));
         campoConfirmarSenha.setEnabled(false);
 
         botaoCancelar = new JButton("Cancelar");
         botaoCancelar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
-        botaoCancelar.setForeground(new Color (118, 118, 118));
-        botaoCancelar.setBackground(new Color (255, 255, 255));
+        botaoCancelar.setForeground(new Color(118, 118, 118));
+        botaoCancelar.setBackground(new Color(255, 255, 255));
         botaoCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         botaoCadastrar = new JButton("Alterar senha");
         botaoCadastrar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
-        botaoCadastrar.setForeground(new Color (230, 230, 230));
-        botaoCadastrar.setBackground(new Color (255, 255, 255));
+        botaoCadastrar.setForeground(new Color(230, 230, 230));
+        botaoCadastrar.setBackground(new Color(255, 255, 255));
         botaoCadastrar.setEnabled(false);
         botaoCadastrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -88,6 +129,7 @@ public class EsqueciSenha {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 0;
         gbc.gridx = 0;
+
         gbc.gridwidth = 2;
 
         // y = Baixo  x = Direita
@@ -102,45 +144,50 @@ public class EsqueciSenha {
         gbc.insets = new Insets(0, 350, 40, 5);
         painelEsqueciSenha.add(botaoAplicar, gbc);
 
+        gbc.insets = new Insets(0, 5, 40, 290);
+        gbc.gridy = 2;
+        gbc.gridx = 0;
+        painelEsqueciSenha.add(scrollPane, gbc);
+
         gbc.insets = new Insets(0, 430, 3, 5);
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.gridwidth = 2;
-        gbc.gridx = 0;
+        gbc.gridx = 1;
         gbc.gridy = 2;
         painelEsqueciSenha.add(textoID, gbc);
-        gbc.gridy = 3;
-        gbc.insets = new Insets(0, 430, 10, 5);
+        gbc.gridy = 2;
+        gbc.insets = new Insets(20, 430, 10, 5);
         painelEsqueciSenha.add(campoID, gbc);
 
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 430, 3, 5);
-        gbc.gridy = 4;
-
+        gbc.insets = new Insets(60, 430, 3, 5);
+        gbc.gridy = 2;
         gbc.gridx = 1;
         painelEsqueciSenha.add(textoNovaSenha, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.insets = new Insets(0, 430, 10, 5);
-
+        gbc.insets = new Insets(80, 430, 10, 5);
+        gbc.gridy = 2;
         gbc.gridx = 1;
         painelEsqueciSenha.add(campoNovaSenha, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        gbc.insets = new Insets(0, 430, 3, 5);
-
+        gbc.insets = new Insets(120, 430, 3, 5);
+        gbc.gridy = 2;
         gbc.gridx = 1;
         painelEsqueciSenha.add(textoConfirmarSenha, gbc);
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        gbc.insets = new Insets(0, 430, 3, 5);
+        gbc.insets = new Insets(140, 430, 3, 5);
+        gbc.gridy = 2;
         gbc.gridx = 1;
         painelEsqueciSenha.add(campoConfirmarSenha, gbc);
 
-        gbc.insets = new Insets(40, 430, 5, 5);
-        gbc.gridy = 8;
+        gbc.insets = new Insets(225, 430, 5, 5);
+        gbc.gridy = 2;
+        gbc.gridx = 1;
         painelEsqueciSenha.add(botaoCancelar, gbc);
-        gbc.insets = new Insets(40, 540, 5, 5);
+        gbc.insets = new Insets(225, 540, 5, 5);
         painelEsqueciSenha.add(botaoCadastrar, gbc);
+
+
+
+
+
 
         botaoAplicar.addActionListener(this::Aplicar);
         botaoCancelar.addActionListener(this::Cancelar);
@@ -155,11 +202,12 @@ public class EsqueciSenha {
         login.voltarLogin();
         System.out.println("Cancelar");
     }
+
     public void Aplicar(ActionEvent e) {
         if (Objects.equals(campoChave.getText(), "123")) {
 
-            botaoAplicar.setForeground(new Color (184, 207, 229));
-            botaoAplicar.setBackground(new Color (255, 255, 255));
+            botaoAplicar.setForeground(new Color(184, 207, 229));
+            botaoAplicar.setBackground(new Color(255, 255, 255));
 
             botaoCadastrar.setBackground(new Color(0, 30, 253));
             botaoCadastrar.setForeground(new Color(255, 255, 255));
@@ -174,19 +222,21 @@ public class EsqueciSenha {
             campoConfirmarSenha.setEnabled(true);
 
             JOptionPane.showMessageDialog(null, "Chave aplicada com sucesso!");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Chave incorreta", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     public void Cadastrar(ActionEvent e) {
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-            String sql = "INSERT INTO funcionario (nome, cpf, telefone, email, senha) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, campoID.getText());
-            statement.setString(3, campoNovaSenha.getText());
-            statement.setString(5, campoConfirmarSenha.getText());
-            statement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+//            String sql = "INSERT INTO funcionario (id, nome, email, senha) VALUES (?, ?, ?, ?)";
+//            PreparedStatement statement = connection.prepareStatement(sql);
+//            statement.setInt(1, Integer.parseInt(campoID.getText()));
+//            statement.setString(2, "Nome do funcionário");
+//            statement.setString(3, "email@exemplo.com");
+//            statement.setString(4, campoNovaSenha.getText());
+//            statement.executeUpdate();
+//            JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
             login.voltarLogin(); // Voltar para a tela de login após cadastrar
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário: " + ex.getMessage());
