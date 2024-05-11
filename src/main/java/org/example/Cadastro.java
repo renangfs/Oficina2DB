@@ -160,7 +160,7 @@ public class Cadastro{
     }
 
     public void Cancelar(ActionEvent e) {
-        login.voltarLogin();
+        login.voltarLoginCadastro();
     }
     public void Aplicar(ActionEvent e) {
         if (Objects.equals(campoChave.getText(), "123")) {
@@ -196,7 +196,7 @@ public class Cadastro{
             statement.setString(5, campoSenha.getText());
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
-            login.voltarLogin(); // Voltar para a tela de login após cadastrar
+            login.voltarLoginCadastro(); // Voltar para a tela de login após cadastrar
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário: " + ex.getMessage());
         }

@@ -3,7 +3,6 @@ package org.example;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,7 +22,8 @@ public class EsqueciSenha {
     JLabel textoChave;
 
     JButton botaoAplicar;
-    public EsqueciSenha(MouseAdapter login) {
+    public EsqueciSenha(Login login){
+        this.login = login;
         painelEsqueciSenha = new JPanel(new GridBagLayout());
         painelEsqueciSenha.setBackground(Color.white);//muda a cor do painel
 
@@ -38,7 +38,7 @@ public class EsqueciSenha {
         textoNovaSenha.setForeground(new Color(118, 118, 118));
         textoNovaSenha.setFont(new Font("Roboto", Font.PLAIN, 12));
 
-        JLabel textoConfirmarSenha = new JLabel("Confirmar senha:");
+        JLabel textoConfirmarSenha = new JLabel("Confirme a senha:");
         textoConfirmarSenha.setForeground(new Color(118, 118, 118));
         textoConfirmarSenha.setFont(new Font("Roboto", Font.PLAIN, 12));
 
@@ -74,7 +74,7 @@ public class EsqueciSenha {
         botaoCancelar.setBackground(new Color (255, 255, 255));
         botaoCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        botaoCadastrar = new JButton("Cadastrar");
+        botaoCadastrar = new JButton("Alterar senha");
         botaoCadastrar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
         botaoCadastrar.setForeground(new Color (230, 230, 230));
         botaoCadastrar.setBackground(new Color (255, 255, 255));
@@ -149,7 +149,7 @@ public class EsqueciSenha {
     }
 
     public void Cancelar(ActionEvent e) {
-        login.voltarLogin();
+        login.voltarLoginEsqueciSenha();
         System.out.println("Cancelar");
     }
     public void Aplicar(ActionEvent e) {
@@ -184,7 +184,7 @@ public class EsqueciSenha {
             statement.setString(5, campoConfirmarSenha.getText());
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
-            login.voltarLogin(); // Voltar para a tela de login após cadastrar
+            login.voltarLoginEsqueciSenha(); // Voltar para a tela de login após cadastrar
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário: " + ex.getMessage());
         }

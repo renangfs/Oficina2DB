@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 public class Login extends JFrame {
     JButton botaoEntrar;
     JButton botaoCadastrar;
+    JButton botaoEsqueciSenha;
 
     ImageIcon image = new ImageIcon("C:/Users/renan/OneDrive/Área de Trabalho/Oficina/src/logo.png");
     JLabel logo = new JLabel(image);
@@ -36,31 +38,32 @@ public class Login extends JFrame {
         textoSenha.setForeground(new Color(118, 118, 118));
         textoSenha.setFont(new Font("Roboto", Font.BOLD, 12));
 
-        JLabel esqueciSenha = new JLabel("<html><u>Esqueci minha senha</u></html>");
-        esqueciSenha.setForeground(new Color(118, 118, 118));
-        esqueciSenha.setFont(new Font("Roboto", Font.BOLD, 10));
-        esqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        // Adicionando um ouvinte de evento de clique ao JLabel esqueciSenha
-        esqueciSenha.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("Cliquei em 'Esqueci minha senha'");
-                getContentPane().removeAll(); // Remove todos os componentes da janela
-                EsqueciSenha esqueciSenha = new EsqueciSenha(new MouseAdapter(){}); // Crie uma instância de EsqueciSenha
-                JPanel painelEsqueciSenha = esqueciSenha.getPainelEsqueciSenha(); // Obtenha o painel de EsqueciSenha
-                add(painelEsqueciSenha, BorderLayout.CENTER); // Adicione o painel de EsqueciSenha ao centro da janela
-                revalidate(); // Revalide o layout da janela após adicionar os novos componentes
-                repaint(); // Redesenha a janela
-            }
-
-
-        });
+//        // Adicionando um ouvinte de evento de clique ao JLabel esqueciSenha
+//        esqueciSenha.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                System.out.println("Cliquei em 'Esqueci minha senha'");
+//                getContentPane().removeAll(); // Remove todos os componentes da janela
+//                EsqueciSenha esqueciSenha = new EsqueciSenha(this); // Crie uma instância de EsqueciSenha
+//                JPanel painelEsqueciSenha = esqueciSenha.getPainelEsqueciSenha(); // Obtenha o painel de EsqueciSenha
+//                add(painelEsqueciSenha, BorderLayout.CENTER); // Adicione o painel de EsqueciSenha ao centro da janela
+//                revalidate(); // Revalide o layout da janela após adicionar os novos componentes
+//                repaint(); // Redesenha a janela
+//            }
+//        });
 
         JTextField campoLogin = new JTextField();
         campoLogin.setPreferredSize(new Dimension(300, 25));
         JTextField campoSenha = new JTextField();
         campoSenha.setPreferredSize(new Dimension(300, 25));
+
+        botaoEsqueciSenha = new JButton("<html><u>Esqueci minha senha</u></html>");
+        botaoEsqueciSenha.setFont(new Font("Roboto", Font.BOLD, 10));
+        botaoEsqueciSenha.setPreferredSize(new Dimension(120, 30));
+        botaoEsqueciSenha.setBorder(new LineBorder(new Color(255, 255, 255)));
+        botaoEsqueciSenha.setBackground(new Color(255, 255, 255));
+        botaoEsqueciSenha.setForeground(new Color(118, 118, 118));
+        botaoEsqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         botaoEntrar = new JButton("Entrar");
         botaoEntrar.setPreferredSize(new Dimension(300, 30));
@@ -111,7 +114,7 @@ public class Login extends JFrame {
         gbc.insets = new Insets(0, 5, 20, 5);
         gbc.anchor = GridBagConstraints.LAST_LINE_END;
         gbc.fill = GridBagConstraints.VERTICAL;
-        painelLogin.add(esqueciSenha, gbc);
+        painelLogin.add(botaoEsqueciSenha, gbc);
 
         gbc.insets = new Insets(0, 5, 15, 5);
         gbc.gridy = 5;
@@ -122,11 +125,13 @@ public class Login extends JFrame {
         painelLogin.add(botaoCadastrar, gbc);
 
         add(painelLogo);
+        botaoEsqueciSenha.addActionListener(this::EsqueciSenha);
         botaoCadastrar.addActionListener(this::Cadastrar);
         botaoEntrar.addActionListener(this::Logar);
     }
 
-    public void voltarLogin() {
+    public void voltarLoginCadastro() {
+
         getContentPane().removeAll(); // Remove todos os componentes da janela
         GridBagConstraints gbc = new GridBagConstraints(); // ajuda na posição dos componentes
 
@@ -137,6 +142,30 @@ public class Login extends JFrame {
         add(painelLogo);
 
         revalidate(); // Revalida o layout da janela
+        repaint(); // Redesenha a janela
+    }
+    public void voltarLoginEsqueciSenha() {
+
+        getContentPane().removeAll(); // Remove todos os componentes da janela
+        GridBagConstraints gbc = new GridBagConstraints(); // ajuda na posição dos componentes
+
+        add(painelLogo);
+        gbc.gridy = 1;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        painelLogo.add(painelLogin, gbc);
+        add(painelLogo);
+
+        revalidate(); // Revalida o layout da janela
+        repaint(); // Redesenha a janela
+    }
+    public void EsqueciSenha(ActionEvent e) {
+        System.out.println("EsqueciSenha");
+        System.out.println("Cliquei em 'Esqueci minha senha'");
+        getContentPane().removeAll(); // Remove todos os componentes da janela
+        EsqueciSenha esqueciSenha = new EsqueciSenha(this); // Crie uma instância de EsqueciSenha
+        JPanel painelEsqueciSenha = esqueciSenha.getPainelEsqueciSenha(); // Obtenha o painel de EsqueciSenha
+        add(painelEsqueciSenha, BorderLayout.CENTER); // Adicione o painel de EsqueciSenha ao centro da janela
+        revalidate(); // Revalide o layout da janela após adicionar os novos componentes
         repaint(); // Redesenha a janela
     }
 
