@@ -6,12 +6,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
 public class EsqueciSenha {
     JButton botaoCancelar;
-    JButton botaoCadastrar;
+    JButton botaoAlterarSenha;
     JPanel painelEsqueciSenha;
     Login login;
 
@@ -28,27 +29,30 @@ public class EsqueciSenha {
         this.login = login;
 
         // Criando modelo de tabela com colunas de nome, idade e número de telefone
-        String[] colunas = {"ID", "Nome", "Email", "Senha"};
+        String[] colunas = {"ID", "Nome", "Email"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
+
+//        try (Connection connection = ConnectionFactory.recuperarConexao()) {
+//            String sql = "SELECT IDFUNCIONARIO, NOME, EMAIL FROM funcionario";
+//            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+//                try (ResultSet resultSet = statement.executeQuery()) {
+//                    while (resultSet.next()) {
+//                        int idFuncionario = resultSet.getInt("IDFUNCIONARIO");
+//                        String nome = resultSet.getString("NOME");
+//                        String email = resultSet.getString("EMAIL");
+//                        System.out.println("ID: " + idFuncionario + ", Nome: " + nome + ", Email: " + email);
+//                    }
+//                }
+//            }
+//            JOptionPane.showMessageDialog(null, "Consulta realizada com sucesso!");
+//            login.voltarLogin(); // Voltar para a tela de login após consultar
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Erro ao executar consulta: " + ex.getMessage());
+//        }
+
 
         // Adicionando dados à tabela (podem ser substituídos por dados reais)
         Object[][] dados = {
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
                 {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
                 {31, "João", "renangfs77@gmail.com", "sddsfa"},
                 {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
@@ -118,12 +122,12 @@ public class EsqueciSenha {
         botaoCancelar.setBackground(new Color(255, 255, 255));
         botaoCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        botaoCadastrar = new JButton("Alterar senha");
-        botaoCadastrar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
-        botaoCadastrar.setForeground(new Color(230, 230, 230));
-        botaoCadastrar.setBackground(new Color(255, 255, 255));
-        botaoCadastrar.setEnabled(false);
-        botaoCadastrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        botaoAlterarSenha = new JButton("Alterar senha");
+        botaoAlterarSenha.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
+        botaoAlterarSenha.setForeground(new Color(230, 230, 230));
+        botaoAlterarSenha.setBackground(new Color(255, 255, 255));
+        botaoAlterarSenha.setEnabled(false);
+        botaoAlterarSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -182,16 +186,12 @@ public class EsqueciSenha {
         gbc.gridx = 1;
         painelEsqueciSenha.add(botaoCancelar, gbc);
         gbc.insets = new Insets(225, 540, 5, 5);
-        painelEsqueciSenha.add(botaoCadastrar, gbc);
-
-
-
-
+        painelEsqueciSenha.add(botaoAlterarSenha, gbc);
 
 
         botaoAplicar.addActionListener(this::Aplicar);
         botaoCancelar.addActionListener(this::Cancelar);
-        botaoCadastrar.addActionListener(this::Cadastrar);
+        botaoAlterarSenha.addActionListener(this::AlterarSenha);
     }
 
     public JPanel getPainelEsqueciSenha() {
@@ -209,16 +209,15 @@ public class EsqueciSenha {
             botaoAplicar.setForeground(new Color(184, 207, 229));
             botaoAplicar.setBackground(new Color(255, 255, 255));
 
-            botaoCadastrar.setBackground(new Color(0, 30, 253));
-            botaoCadastrar.setForeground(new Color(255, 255, 255));
+            botaoAlterarSenha.setBackground(new Color(0, 30, 253));
+            botaoAlterarSenha.setForeground(new Color(255, 255, 255));
 
             botaoAplicar.setEnabled(false);
             campoChave.setEnabled(false);
-            botaoCadastrar.setEnabled(true);
+            botaoAlterarSenha.setEnabled(true);
             campoID.setEnabled(true);
 
             campoNovaSenha.setEnabled(true);
-
             campoConfirmarSenha.setEnabled(true);
 
             JOptionPane.showMessageDialog(null, "Chave aplicada com sucesso!");
@@ -227,19 +226,23 @@ public class EsqueciSenha {
         }
     }
 
-    public void Cadastrar(ActionEvent e) {
+    public void AlterarSenha(ActionEvent e) {
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-//            String sql = "INSERT INTO funcionario (id, nome, email, senha) VALUES (?, ?, ?, ?)";
-//            PreparedStatement statement = connection.prepareStatement(sql);
-//            statement.setInt(1, Integer.parseInt(campoID.getText()));
-//            statement.setString(2, "Nome do funcionário");
-//            statement.setString(3, "email@exemplo.com");
-//            statement.setString(4, campoNovaSenha.getText());
-//            statement.executeUpdate();
-//            JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
-            login.voltarLogin(); // Voltar para a tela de login após cadastrar
+            String sql = "UPDATE `funcionario` SET `SENHA`=(?) WHERE `IDFUNCIONARIO`=(?);";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, campoConfirmarSenha.getText());
+            statement.setString(2, campoID.getText());
+            if (Objects.equals(campoNovaSenha.getText(),campoConfirmarSenha.getText())){
+                statement.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+                login.voltarLogin(); // Voltar para a tela de login após cadastrar
+            }else{
+                JOptionPane.showMessageDialog(null, "Senhas divergentes", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário" + ex.getMessage());
         }
     }
 }
+// SELECT IDFUNCIONARIO,NOME,EMAIL FROM `funcionario` ;
+//UPDATE `funcionario` SET `SENHA`='1234567' WHERE `IDFUNCIONARIO`='1';
