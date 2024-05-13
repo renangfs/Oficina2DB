@@ -229,7 +229,7 @@ public class EsqueciSenha {
             statement.setString(2, campoID.getText());
             if (Objects.equals(campoNovaSenha.getText(),campoConfirmarSenha.getText())){
                 statement.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!");
                 login.voltarLogin(); // Voltar para a tela de login após cadastrar
             }else{
                 JOptionPane.showMessageDialog(null, "Senhas divergentes", "Error", JOptionPane.ERROR_MESSAGE);
