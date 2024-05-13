@@ -74,7 +74,6 @@ public class EsqueciSenha {
         textoChave.setForeground(new Color(118, 118, 118));
         textoChave.setFont(new Font("Roboto", Font.BOLD, 12));
         JLabel textoID = new JLabel("ID:");
-        textoID.setOpaque(true);
         textoID.setForeground(new Color(118, 118, 118));
         textoID.setFont(new Font("Roboto", Font.PLAIN, 12));
 
