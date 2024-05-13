@@ -25,48 +25,41 @@ public class EsqueciSenha {
 
     JButton botaoAplicar;
 
+    JTable table;
     public EsqueciSenha(Login login) {
         this.login = login;
 
-        // Criando modelo de tabela com colunas de nome, idade e número de telefone
+        // Criando modelo de tabela com colunas de ID, Nome e Email
         String[] colunas = {"ID", "Nome", "Email"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
 
-//        try (Connection connection = ConnectionFactory.recuperarConexao()) {
-//            String sql = "SELECT IDFUNCIONARIO, NOME, EMAIL FROM funcionario";
-//            try (PreparedStatement statement = connection.prepareStatement(sql)) {
-//                try (ResultSet resultSet = statement.executeQuery()) {
-//                    while (resultSet.next()) {
-//                        int idFuncionario = resultSet.getInt("IDFUNCIONARIO");
-//                        String nome = resultSet.getString("NOME");
-//                        String email = resultSet.getString("EMAIL");
-//                        System.out.println("ID: " + idFuncionario + ", Nome: " + nome + ", Email: " + email);
-//                    }
-//                }
-//            }
-//            JOptionPane.showMessageDialog(null, "Consulta realizada com sucesso!");
-//            login.voltarLogin(); // Voltar para a tela de login após consultar
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Erro ao executar consulta: " + ex.getMessage());
-//        }
+        try (Connection connection = ConnectionFactory.recuperarConexao()) {
+            String sql = "SELECT IDFUNCIONARIO, NOME, EMAIL FROM funcionario";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {//Coloca o SQL no terminal do Banco de dados
+                try (ResultSet resultSet = statement.executeQuery()) {//executa o SQL e captura o resultado
+                    while (resultSet.next()) {//percorre cada tupla do resultado
+                        String idFuncionario = resultSet.getString("IDFUNCIONARIO");
+                        String nome = resultSet.getString("NOME");
+                        String email = resultSet.getString("EMAIL");
 
+                        // Criar uma linha de dados
+                        Object[] linha = {idFuncionario, nome, email};
+                        // Adicionar a linha ao modelo de tabela
+                        model.addRow(linha);
 
-        // Adicionando dados à tabela (podem ser substituídos por dados reais)
-        Object[][] dados = {
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {30, "renan", "renangfs77@gmail.com", "2sdasd832"},
-                {31, "João", "renangfs77@gmail.com", "sddsfa"},
-                {32, "maria", "renangfs77@gmail.com", "283sda2"}
-        };
-
-        // Adicionando os dados ao modelo da tabela
-        for (Object[] linha : dados) {
-            model.addRow(linha);
+                        System.out.println("ID: " + idFuncionario + ", Nome: " + nome + ", Email: " + email);//executa a saida no terminal
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao executar consulta: " + ex.getMessage());
         }
 
+
         // Criando a tabela com o modelo criado
-        JTable table = new JTable(model);
+        table = new JTable(model);
+        table.setEnabled(false);//bloqueia a tabela
+        table.setVisible(false);//Tabela invisivel
 
         // Adicionando a tabela a um painel de rolagem para permitir a rolagem caso a tabela seja muito grande
         JScrollPane scrollPane = new JScrollPane(table);
@@ -81,6 +74,7 @@ public class EsqueciSenha {
         textoChave.setForeground(new Color(118, 118, 118));
         textoChave.setFont(new Font("Roboto", Font.BOLD, 12));
         JLabel textoID = new JLabel("ID:");
+        textoID.setOpaque(true);
         textoID.setForeground(new Color(118, 118, 118));
         textoID.setFont(new Font("Roboto", Font.PLAIN, 12));
 
@@ -219,6 +213,7 @@ public class EsqueciSenha {
 
             campoNovaSenha.setEnabled(true);
             campoConfirmarSenha.setEnabled(true);
+            table.setVisible(true);//Tabela invisivel
 
             JOptionPane.showMessageDialog(null, "Chave aplicada com sucesso!");
         } else {
