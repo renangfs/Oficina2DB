@@ -12,7 +12,7 @@ public class Login extends JFrame {
     JButton botaoCadastrar;
     JButton botaoEsqueciSenha;
 
-    ImageIcon image = new ImageIcon("C:/Users/renan/OneDrive/Área de Trabalho/Oficina/src/logo.png");
+    ImageIcon image = new ImageIcon("C:/Users/renan/OneDrive/Área de Trabalho/Oficina2DB/src/main/java/org/example/logo.png");
     JLabel logo = new JLabel(image);
 
     JPanel painelLogo;
