@@ -20,6 +20,7 @@ public class Cadastro{
     JTextField campoTelefone;
     JTextField campoEmail;
     JTextField campoSenha;
+    JTextField campoLogin;
 
     JLabel textoChave;
 
@@ -34,20 +35,35 @@ public class Cadastro{
         textoChave.setForeground(new Color(118, 118, 118));
         textoChave.setFont(new Font("Roboto", Font.BOLD, 12));
         JLabel textoNome = new JLabel("Nome:");
-        textoNome.setForeground(new Color(118, 118, 118));
+        textoNome.setForeground(new Color(170, 170, 170));
         textoNome.setFont(new Font("Roboto", Font.PLAIN, 12));
         JLabel textoCpf = new JLabel("CPF:");
-        textoCpf.setForeground(new Color(118, 118, 118));
+        textoCpf.setForeground(new Color(170, 170, 170));
         textoCpf.setFont(new Font("Roboto", Font.PLAIN, 12));
         JLabel textoTelefone = new JLabel("Telefone:");
-        textoTelefone.setForeground(new Color(118, 118, 118));
+        textoTelefone.setForeground(new Color(170, 170, 170));
         textoTelefone.setFont(new Font("Roboto", Font.PLAIN, 12));
         JLabel textoEmail = new JLabel("Email:");
-        textoEmail.setForeground(new Color(118, 118, 118));
+        textoEmail.setForeground(new Color(170, 170, 170));
         textoEmail.setFont(new Font("Roboto", Font.PLAIN, 12));
+        JLabel textoLogin = new JLabel("Login:");
+        textoLogin.setForeground(new Color(170, 170, 170));
+        textoLogin.setFont(new Font("Roboto", Font.PLAIN, 12));
         JLabel textoSenha = new JLabel("Senha:");
-        textoSenha.setForeground(new Color(118, 118, 118));
+        textoSenha.setForeground(new Color(170, 170, 170));
         textoSenha.setFont(new Font("Roboto", Font.PLAIN, 12));
+
+
+        JLabel textoDadosPessoais = new JLabel("Dados Pessoais");
+        textoDadosPessoais.setForeground(new Color(140, 140, 140));
+        textoDadosPessoais.setFont(new Font("Roboto", Font.BOLD, 15));
+        JLabel textoDadosDeAcesso = new JLabel("Dados de acesso");
+        textoDadosDeAcesso.setForeground(new Color(140, 140, 140));
+        textoDadosDeAcesso.setFont(new Font("Roboto", Font.BOLD, 15));
+        JLabel textoCadastro = new JLabel("Cadastro");
+        textoCadastro.setForeground(new Color(50, 50, 50));
+        textoCadastro.setFont(new Font("Roboto", Font.BOLD, 25));
+
 
         campoChave = new JTextField();
         campoChave.setPreferredSize(new Dimension(250, 25));
@@ -60,7 +76,7 @@ public class Cadastro{
 
 
         campoNome = new JTextField();
-        campoNome.setPreferredSize(new Dimension(415, 25));
+        campoNome.setPreferredSize(new Dimension(300, 25));
         campoNome.setEnabled(false);
 
         campoCPF = new JTextField();
@@ -72,12 +88,16 @@ public class Cadastro{
         campoTelefone.setEnabled(false);
 
         campoEmail = new JTextField();
-        campoEmail.setPreferredSize(new Dimension(200, 25));
+        campoEmail.setPreferredSize(new Dimension(300, 25));
         campoEmail.setEnabled(false);
 
         campoSenha = new JTextField();
         campoSenha.setPreferredSize(new Dimension(200, 25));
         campoSenha.setEnabled(false);
+
+        campoLogin = new JTextField();
+        campoLogin.setPreferredSize(new Dimension(200, 25));
+        campoLogin.setEnabled(false);
 
         botaoCancelar = new JButton("Cancelar");
         botaoCancelar.setBounds(50, 50, 100, 30); // (x, y, largura, altura)
@@ -94,60 +114,82 @@ public class Cadastro{
 
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridy = 0;
-        gbc.gridx = 0;
         gbc.gridwidth = 2;
-
         // y = Baixo  x = Direita
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, 5, 5, 235);
-        panelCadastro.add(textoChave, gbc);
 
-        gbc.insets = new Insets(0, 5, 40, 100);
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(5, 5, 5, 140);
+        gbc.gridy = 0;
+        gbc.gridx =1;
+        panelCadastro.add(textoChave, gbc);
+        gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridy = 1;
         panelCadastro.add(campoChave, gbc);
-        gbc.gridx = 1;
-        gbc.insets = new Insets(0, 50, 40, 5);
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.insets = new Insets(5, 40, 5, 5);
         panelCadastro.add(botaoAplicar, gbc);
 
-        gbc.insets = new Insets(0, 8, 3, 5);
+
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
-        gbc.gridwidth = 2;
         gbc.gridx = 0;
         gbc.gridy = 2;
-        panelCadastro.add(textoNome, gbc);
+        gbc.insets = new Insets(20, 10, 2, 2);
+        panelCadastro.add(textoCadastro, gbc);
+        gbc.insets = new Insets(10, 10, 2, 2);
         gbc.gridy = 3;
-        gbc.insets = new Insets(0, 8, 10, 5);
-        panelCadastro.add(campoNome, gbc);
-
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, 8, 3, 5);
+        panelCadastro.add(textoDadosPessoais, gbc);
+        gbc.insets = new Insets(2, 10, 2, 2);
+        gbc.gridx = 0;
         gbc.gridy = 4;
-        panelCadastro.add(textoCpf, gbc);
-        gbc.gridx = 1;
-        panelCadastro.add(textoTelefone, gbc);
+        panelCadastro.add(textoNome, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
-        gbc.insets = new Insets(0, 8, 10, 5);
+        panelCadastro.add(campoNome, gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        panelCadastro.add(textoCpf, gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 5;
         panelCadastro.add(campoCPF, gbc);
-        gbc.gridx = 1;
-        panelCadastro.add(campoTelefone, gbc);
         gbc.gridx = 0;
         gbc.gridy = 6;
-        gbc.insets = new Insets(0, 8, 3, 5);
         panelCadastro.add(textoEmail, gbc);
-        gbc.gridx = 1;
-        panelCadastro.add(textoSenha, gbc);
         gbc.gridx = 0;
         gbc.gridy = 7;
         panelCadastro.add(campoEmail, gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 6;
+        panelCadastro.add(textoTelefone, gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 7;
+        panelCadastro.add(campoTelefone, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.insets = new Insets(20, 10, 2, 2);
+        panelCadastro.add(textoDadosDeAcesso, gbc);
+        gbc.insets = new Insets(2, 10, 2, 2);
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        panelCadastro.add(textoLogin, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        panelCadastro.add(campoLogin, gbc);
+        gbc.insets = new Insets(2, 220, 2, 2);
         gbc.gridx = 1;
+        gbc.gridy = 9;
+        panelCadastro.add(textoSenha, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 10;
         panelCadastro.add(campoSenha, gbc);
 
-        gbc.insets = new Insets(40, 20, 5, 5);
-        gbc.gridy = 8;
+
+        gbc.insets = new Insets(20, 330, 2, 2);
+        gbc.gridy = 11;
         panelCadastro.add(botaoCancelar, gbc);
-        gbc.insets = new Insets(40, 120, 5, 5);
+        gbc.insets = new Insets(20, 430, 2, 2);
+        gbc.gridy = 11;
         panelCadastro.add(botaoCadastrar, gbc);
 
         botaoAplicar.addActionListener(this::Aplicar);
@@ -178,6 +220,7 @@ public class Cadastro{
             campoCPF.setEnabled(true);
             campoTelefone.setEnabled(true);
             campoEmail.setEnabled(true);
+            campoLogin.setEnabled(true);
             campoSenha.setEnabled(true);
 
             JOptionPane.showMessageDialog(null, "Chave aplicada com sucesso!");
@@ -187,13 +230,14 @@ public class Cadastro{
     }
     public void Cadastrar(ActionEvent e) {
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-            String sql = "INSERT INTO funcionario (nome, cpf, telefone, email, senha) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `funcionario`(`NOME`, `CPF`, `EMAIL`, `TELEFONE`, `LOGIN`, `SENHA`) VALUES (?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, campoNome.getText());
             statement.setString(2, campoCPF.getText());
-            statement.setString(3, campoTelefone.getText());
-            statement.setString(4, campoEmail.getText());
-            statement.setString(5, campoSenha.getText());
+            statement.setString(3, campoEmail.getText());
+            statement.setString(4, campoTelefone.getText());
+            statement.setString(5, campoLogin.getText());
+            statement.setString(6, campoSenha.getText());
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
             login.voltarLogin(); // Voltar para a tela de login após cadastrar

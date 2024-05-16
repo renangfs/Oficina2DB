@@ -3,8 +3,14 @@ package org.example;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Objects;
 
 
 public class Login extends JFrame {
@@ -17,6 +23,10 @@ public class Login extends JFrame {
 
     JPanel painelLogo;
     JPanel painelLogin;
+
+    JTextField campoLogin;
+    JTextField campoSenha;
+
 
     public Login() {
         setSize(1200, 800); // largura e altura da janela
@@ -40,9 +50,9 @@ public class Login extends JFrame {
         textoSenha.setForeground(new Color(118, 118, 118));
         textoSenha.setFont(new Font("Roboto", Font.BOLD, 12));
 
-        JTextField campoLogin = new JTextField();
+        campoLogin = new JTextField();
         campoLogin.setPreferredSize(new Dimension(300, 25));
-        JTextField campoSenha = new JTextField();
+        campoSenha = new JTextField();
         campoSenha.setPreferredSize(new Dimension(300, 25));
 
         botaoEsqueciSenha = new JButton("<html><u>Esqueci minha senha</u></html>");
@@ -154,8 +164,50 @@ public class Login extends JFrame {
     }
 
     public void Logar(ActionEvent e) {
-        System.out.println("Clicando logar");
-    }
+        boolean continuar = true;
+        // Capturando ID,login e Nome no banco de dados
+        try (Connection connection = ConnectionFactory.recuperarConexao()) {
+            String sql = "SELECT IDFUNCIONARIO, LOGIN, SENHA FROM funcionario";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {//Coloca o SQL no terminal do Banco de dados
+                try (ResultSet resultSet = statement.executeQuery()) {//executa o SQL e captura o resultado
+                    while (resultSet.next() && continuar) {//percorre cada tupla do resultado
+                        String idFuncionario = resultSet.getString("IDFUNCIONARIO");
+                        String login = resultSet.getString("LOGIN");
+                        String senha = resultSet.getString("SENHA");
 
+                        System.out.println("ID: " + idFuncionario + ", Login: " + login + ", SENHA: " + senha);//executa a saida no terminal
+
+                        System.out.println("Verificando Login: "+campoLogin.getText());
+                        System.out.println("Verificando Senha: "+campoSenha.getText());
+
+                        if(Objects.equals(campoLogin.getText(),login)){ // Verifica se o campo login é igual a algum login existente
+                            if(Objects.equals(campoSenha.getText(),senha)){
+
+                                System.out.println(login+" entrou no sistema");
+
+                                getContentPane().removeAll(); // Remove todos os componentes da janela
+                                MenuConsulta menuConsulta = new MenuConsulta(this); // Passa a referência da instância de Login para Cadastro
+                                JPanel painelMenuConsulta = menuConsulta.painelConsulta; // Obtém o painel do cadastro
+                                add(painelMenuConsulta, BorderLayout.CENTER); // Adiciona o painel do cadastro ao centro da janela
+                                revalidate(); // Revalide o layout da janela após adicionar os novos componentes
+                                repaint(); // Redesenha a janela
+                                JOptionPane.showMessageDialog(null, "Olá, "+login+"! Bom te ver novamente.");
+                                campoLogin.setText("");
+                                campoSenha.setText("");
+                                continuar = false;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao executar consulta: " + ex.getMessage());
+        }
+        if(continuar){
+            JOptionPane.showMessageDialog(null, "Erro de autenticação. Certifique-se de que o login e senha estão corretos.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("Erro de autenticação. Certifique-se de que o login e senha estão corretos.");
+        }
+
+    }
 }
 

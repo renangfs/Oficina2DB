@@ -30,17 +30,17 @@ public class EsqueciSenha {
         this.login = login;
 
         // Criando modelo de tabela com colunas de ID, Nome e Email
-        String[] colunas = {"ID", "Nome", "Email"};
+        String[] colunas = {"ID", "Login", "Nome"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-            String sql = "SELECT IDFUNCIONARIO, NOME, EMAIL FROM funcionario";
+            String sql = "SELECT IDFUNCIONARIO, LOGIN, NOME FROM funcionario";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {//Coloca o SQL no terminal do Banco de dados
                 try (ResultSet resultSet = statement.executeQuery()) {//executa o SQL e captura o resultado
                     while (resultSet.next()) {//percorre cada tupla do resultado
                         String idFuncionario = resultSet.getString("IDFUNCIONARIO");
-                        String nome = resultSet.getString("NOME");
-                        String email = resultSet.getString("EMAIL");
+                        String nome = resultSet.getString("LOGIN");
+                        String email = resultSet.getString("NOME");
 
                         // Criar uma linha de dados
                         Object[] linha = {idFuncionario, nome, email};

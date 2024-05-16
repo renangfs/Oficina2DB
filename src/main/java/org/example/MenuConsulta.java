@@ -10,13 +10,17 @@ public class MenuConsulta extends JFrame {
     JButton botaoEntradas;
     JButton botaoSaidas;
     JButton botaoSair;
+    Login login;
+
 
     JPanel painelConsulta;
 
     JLabel textoConsultar;
 
-    public MenuConsulta() {
-        setSize(1200, 800); // largura e altura da janela
+    public MenuConsulta(Login login) {
+        this.login = login;
+        //setSize(1200, 800); // largura e altura da janela
+        setExtendedState(JFrame.MAXIMIZED_BOTH);//nasce com a tela maximizada
         setMinimumSize(new Dimension(1200, 800)); // largura e altura minima da janela
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // configurando o encerramento do programa ao fechar
         setLocationRelativeTo(null); // centraliza a janela
@@ -24,7 +28,7 @@ public class MenuConsulta extends JFrame {
 
         textoConsultar = new JLabel("Consultar");
         textoConsultar.setForeground(new Color(0, 0, 0));
-        textoConsultar.setFont(new Font("Roboto", Font.BOLD, 40));
+        textoConsultar.setFont(new Font("Roboto", Font.BOLD, 30));
 
         painelConsulta = new JPanel(new GridBagLayout());
         painelConsulta.setBackground(Color.WHITE);
@@ -82,11 +86,13 @@ public class MenuConsulta extends JFrame {
 
         add(painelConsulta);
 
+        botaoSair.addActionListener(this::voltarLogin);
+
     }
 
 
     private void voltarLogin(ActionEvent actionEvent) {
-        System.out.println("Voltando para o login");
+        login.voltarLogin();
     }
 
     public void Estoque(ActionEvent e) {
