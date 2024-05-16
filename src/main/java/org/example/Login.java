@@ -29,6 +29,9 @@ public class Login extends JFrame {
         painelLogin = new JPanel(new GridBagLayout());
         painelLogin.setBackground(Color.WHITE);
 
+
+
+
         JLabel textoLogin = new JLabel("Login:");
         textoLogin.setForeground(new Color(118, 118, 118));
         textoLogin.setFont(new Font("Roboto", Font.BOLD, 12));
