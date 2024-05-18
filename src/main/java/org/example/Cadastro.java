@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class Cadastro{
+    Login login;
     JButton botaoCancelar;
     JButton botaoCadastrar;
-    JPanel panelCadastro;
-    Login login;
+    JPanel painelCadastro;
 
     JTextField campoChave;
     JTextField campoNome;
@@ -28,8 +28,8 @@ public class Cadastro{
 
     public Cadastro(Login login) {
         this.login = login;
-        panelCadastro = new JPanel(new GridBagLayout());
-        panelCadastro.setBackground(Color.white);//muda a cor do painel
+        painelCadastro = new JPanel(new GridBagLayout());
+        painelCadastro.setBackground(Color.white);//muda a cor do painel
 
         textoChave = new JLabel("Chave de cadastro:");
         textoChave.setForeground(new Color(118, 118, 118));
@@ -121,88 +121,89 @@ public class Cadastro{
         gbc.insets = new Insets(5, 5, 5, 140);
         gbc.gridy = 0;
         gbc.gridx =1;
-        panelCadastro.add(textoChave, gbc);
+        painelCadastro.add(textoChave, gbc);
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridy = 1;
-        panelCadastro.add(campoChave, gbc);
+        painelCadastro.add(campoChave, gbc);
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.insets = new Insets(5, 40, 5, 5);
-        panelCadastro.add(botaoAplicar, gbc);
+        painelCadastro.add(botaoAplicar, gbc);
 
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.insets = new Insets(20, 10, 2, 2);
-        panelCadastro.add(textoCadastro, gbc);
+        painelCadastro.add(textoCadastro, gbc);
         gbc.insets = new Insets(10, 10, 2, 2);
         gbc.gridy = 3;
-        panelCadastro.add(textoDadosPessoais, gbc);
+        painelCadastro.add(textoDadosPessoais, gbc);
         gbc.insets = new Insets(2, 10, 2, 2);
         gbc.gridx = 0;
         gbc.gridy = 4;
-        panelCadastro.add(textoNome, gbc);
+        painelCadastro.add(textoNome, gbc);
         gbc.gridx = 0;
         gbc.gridy = 5;
-        panelCadastro.add(campoNome, gbc);
+        painelCadastro.add(campoNome, gbc);
         gbc.gridx = 2;
         gbc.gridy = 4;
-        panelCadastro.add(textoCpf, gbc);
+        painelCadastro.add(textoCpf, gbc);
         gbc.gridx = 2;
         gbc.gridy = 5;
-        panelCadastro.add(campoCPF, gbc);
+        painelCadastro.add(campoCPF, gbc);
         gbc.gridx = 0;
         gbc.gridy = 6;
-        panelCadastro.add(textoEmail, gbc);
+        painelCadastro.add(textoEmail, gbc);
         gbc.gridx = 0;
         gbc.gridy = 7;
-        panelCadastro.add(campoEmail, gbc);
+        painelCadastro.add(campoEmail, gbc);
         gbc.gridx = 2;
         gbc.gridy = 6;
-        panelCadastro.add(textoTelefone, gbc);
+        painelCadastro.add(textoTelefone, gbc);
         gbc.gridx = 2;
         gbc.gridy = 7;
-        panelCadastro.add(campoTelefone, gbc);
+        painelCadastro.add(campoTelefone, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.insets = new Insets(20, 10, 2, 2);
-        panelCadastro.add(textoDadosDeAcesso, gbc);
+        painelCadastro.add(textoDadosDeAcesso, gbc);
         gbc.insets = new Insets(2, 10, 2, 2);
         gbc.gridx = 0;
         gbc.gridy = 9;
-        panelCadastro.add(textoLogin, gbc);
+        painelCadastro.add(textoLogin, gbc);
         gbc.gridx = 0;
         gbc.gridy = 10;
-        panelCadastro.add(campoLogin, gbc);
+        painelCadastro.add(campoLogin, gbc);
         gbc.insets = new Insets(2, 220, 2, 2);
         gbc.gridx = 1;
         gbc.gridy = 9;
-        panelCadastro.add(textoSenha, gbc);
+        painelCadastro.add(textoSenha, gbc);
         gbc.gridx = 1;
         gbc.gridy = 10;
-        panelCadastro.add(campoSenha, gbc);
+        painelCadastro.add(campoSenha, gbc);
 
 
         gbc.insets = new Insets(20, 330, 2, 2);
         gbc.gridy = 11;
-        panelCadastro.add(botaoCancelar, gbc);
+        painelCadastro.add(botaoCancelar, gbc);
         gbc.insets = new Insets(20, 430, 2, 2);
         gbc.gridy = 11;
-        panelCadastro.add(botaoCadastrar, gbc);
+        painelCadastro.add(botaoCadastrar, gbc);
 
         botaoAplicar.addActionListener(this::Aplicar);
         botaoCancelar.addActionListener(this::Cancelar);
         botaoCadastrar.addActionListener(this::Cadastrar);
     }
 
-    public JPanel getPanelCadastro() {
-        return panelCadastro;
+    public JPanel getPainelCadastro() {
+        return painelCadastro;
     }
 
+
     public void Cancelar(ActionEvent e) {
-        login.voltarLogin();
+        login.VoltarLogin();
     }
     public void Aplicar(ActionEvent e) {
         if (Objects.equals(campoChave.getText(), "123")) {
@@ -240,10 +241,9 @@ public class Cadastro{
             statement.setString(6, campoSenha.getText());
             statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
-            login.voltarLogin(); // Voltar para a tela de login após cadastrar
+            login.VoltarLogin(); // Voltar para a tela de login após cadastrar
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar usuário: " + ex.getMessage());
         }
-
     }
 }

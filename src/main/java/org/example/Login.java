@@ -35,7 +35,7 @@ public class Login extends JFrame {
         setLocationRelativeTo(null); // centraliza a janela
 
         painelLogo = new JPanel(new GridBagLayout());
-        painelLogo.setBackground(Color.white);
+        painelLogo.setBackground(Color.WHITE);
         painelLogin = new JPanel(new GridBagLayout());
         painelLogin.setBackground(Color.WHITE);
 
@@ -128,7 +128,7 @@ public class Login extends JFrame {
         botaoEntrar.addActionListener(this::Logar);
     }
 
-    public void voltarLogin() {
+    public void VoltarLogin() {
 
         getContentPane().removeAll(); // Remove todos os componentes da janela
         GridBagConstraints gbc = new GridBagConstraints(); // ajuda na posição dos componentes
@@ -144,7 +144,6 @@ public class Login extends JFrame {
     }
 
     public void EsqueciSenha(ActionEvent e) {
-        System.out.println("EsqueciSenha");
         System.out.println("Cliquei em 'Esqueci minha senha'");
         getContentPane().removeAll(); // Remove todos os componentes da janela
         EsqueciSenha esqueciSenha = new EsqueciSenha(this); // Crie uma instância de EsqueciSenha
@@ -158,7 +157,7 @@ public class Login extends JFrame {
         getContentPane().removeAll(); // Remove todos os componentes da janela
         // Criar e adicionar os novos componentes à janela
         Cadastro cadastro = new Cadastro(this); // Passa a referência da instância de Login para Cadastro
-        JPanel painelCadastro = cadastro.getPanelCadastro(); // Obtém o painel do cadastro
+        JPanel painelCadastro = cadastro.getPainelCadastro(); // Obtém o painel do cadastro
         add(painelCadastro, BorderLayout.CENTER); // Adiciona o painel do cadastro ao centro da janela
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
     }
@@ -186,9 +185,9 @@ public class Login extends JFrame {
                                 System.out.println(login+" entrou no sistema");
 
                                 getContentPane().removeAll(); // Remove todos os componentes da janela
-                                MenuConsulta menuConsulta = new MenuConsulta(this); // Passa a referência da instância de Login para Cadastro
-                                JPanel painelMenuConsulta = menuConsulta.painelConsulta; // Obtém o painel do cadastro
-                                add(painelMenuConsulta, BorderLayout.CENTER); // Adiciona o painel do cadastro ao centro da janela
+                                MenuConsulta menuConsulta = new MenuConsulta(this); // Passa a referência da instância de Login para MenuConsulta
+                                JPanel painelMenuConsulta = menuConsulta.painelConsulta; // Obtém o painel do Consulta
+                                add(painelMenuConsulta, BorderLayout.CENTER); // Adiciona o painel do Consulta ao centro da janela
                                 revalidate(); // Revalide o layout da janela após adicionar os novos componentes
                                 repaint(); // Redesenha a janela
                                 JOptionPane.showMessageDialog(null, "Olá, "+login+"! Bom te ver novamente.");
@@ -209,5 +208,42 @@ public class Login extends JFrame {
         }
 
     }
-}
+    public void Estoque() {
+        getContentPane().removeAll(); // Remove todos os componentes da janela
+        // Criar e adicionar os novos componentes à janela
+        Estoque estoque = new Estoque( this); // Passa a referência da instância de Login para Cadastro
+        JPanel painelEstoque = estoque.getPainelEstoque(); // Obtém o painel do cadastro
+        add(painelEstoque, BorderLayout.CENTER); // Adiciona o painel do cadastro ao centro da janela
+        revalidate(); // Revalida o layout da janela após adicionar os novos componentes
+        repaint(); // Redesenha a janela
+    }
+    public void VoltarMenuConsulta() {
+        getContentPane().removeAll(); // Remove todos os componentes da janela
 
+        MenuConsulta menuConsulta = new MenuConsulta(this); // Passa a referência da instância de Login para MenuConsulta
+        JPanel painelMenuConsulta = menuConsulta.painelConsulta; // Obtém o painel do Consulta
+        add(painelMenuConsulta, BorderLayout.CENTER); // Adiciona o painel do Consulta ao centro da janela
+
+        revalidate(); // Revalida o layout da janela após adicionar os novos componentes
+        repaint(); // Redesenha a janela
+    }
+
+    public void IncluirEntrada() {
+        IncluirEntrada incluirEntrada = new IncluirEntrada(this); // Passa a referência da instância de Login para Cadastro
+        JPanel PainelIncluirEntrada = incluirEntrada.getPainelIncluirEntrada(); // Obtém o painel do cadastro
+
+        // Criar uma nova janela
+        JFrame JanelaInserirProduto = new JFrame("Incluir Produto");
+        JanelaInserirProduto.setSize(720, 480); // Define o tamanho da janela
+        JanelaInserirProduto.setResizable(false);
+        JanelaInserirProduto.getContentPane().setBackground(Color.WHITE); // Define a cor de fundo da janela
+        JanelaInserirProduto.setLocationRelativeTo(null); // Centraliza a janela na tela
+        JanelaInserirProduto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Define o comportamento padrão ao fechar a janela
+
+        JanelaInserirProduto.add(PainelIncluirEntrada, BorderLayout.CENTER); // Adiciona o painel do cadastro à nova janela
+
+        JanelaInserirProduto.setVisible(true); // Torna a nova janela visível
+
+        revalidate(); // Revalida o layout da janela após adicionar os novos componentes
+    }
+}

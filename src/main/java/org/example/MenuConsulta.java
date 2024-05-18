@@ -5,13 +5,12 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class MenuConsulta extends JFrame {
+public class MenuConsulta extends Login {
     JButton botaoEstoque;
     JButton botaoEntradas;
     JButton botaoSaidas;
     JButton botaoSair;
     Login login;
-
 
     JPanel painelConsulta;
 
@@ -19,12 +18,6 @@ public class MenuConsulta extends JFrame {
 
     public MenuConsulta(Login login) {
         this.login = login;
-        //setSize(1200, 800); // largura e altura da janela
-        setExtendedState(JFrame.MAXIMIZED_BOTH);//nasce com a tela maximizada
-        setMinimumSize(new Dimension(1200, 800)); // largura e altura minima da janela
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // configurando o encerramento do programa ao fechar
-        setLocationRelativeTo(null); // centraliza a janela
-
 
         textoConsultar = new JLabel("Consultar");
         textoConsultar.setForeground(new Color(0, 0, 0));
@@ -58,11 +51,9 @@ public class MenuConsulta extends JFrame {
         botaoSair.setForeground(new Color(200, 200, 200));
         botaoSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridy = 0;
         gbc.gridx = 0;
-
         gbc.insets = new Insets(0, 5, 30, 5);
         gbc.anchor = GridBagConstraints.CENTER;
         painelConsulta.add(textoConsultar, gbc);
@@ -83,28 +74,30 @@ public class MenuConsulta extends JFrame {
         gbc.gridy = 4;
         painelConsulta.add(botaoSair, gbc);
 
-
         add(painelConsulta);
 
-        botaoSair.addActionListener(this::voltarLogin);
+        botaoEstoque.addActionListener(this::Estoque);
+        botaoEntradas.addActionListener(this::Entrada);
+        botaoSaidas.addActionListener(this::Saidas);
+        botaoSair.addActionListener(this::VoltarLogin);
 
     }
 
-
-    private void voltarLogin(ActionEvent actionEvent) {
-        login.voltarLogin();
+    private void Estoque(ActionEvent actionEvent) {
+        login.Estoque();//indo para a classe login...para ir para classe estoque
     }
 
-    public void Estoque(ActionEvent e) {
-        System.out.println("Clicando em esqueci senha");
-    }
 
     public void Entrada(ActionEvent e) {
-        System.out.println("Clicando em cadastrar");
+        System.out.println("Clicando em entrada");
     }
 
     public void Saidas(ActionEvent e) {
-        System.out.println("Clicando em logar");
+        System.out.println("Clicando em saida");
+    }
+
+    private void VoltarLogin(ActionEvent actionEvent) {
+        login.VoltarLogin();
     }
 
 }

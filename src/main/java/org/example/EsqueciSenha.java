@@ -192,7 +192,7 @@ public class EsqueciSenha {
     }
 
     public void Cancelar(ActionEvent e) {
-        login.voltarLogin();
+        login.VoltarLogin();
         System.out.println("Cancelar");
     }
 
@@ -229,7 +229,7 @@ public class EsqueciSenha {
             if (Objects.equals(campoNovaSenha.getText(),campoConfirmarSenha.getText())){
                 statement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!");
-                login.voltarLogin(); // Voltar para a tela de login após cadastrar
+                login.VoltarLogin(); // Voltar para a tela de login após cadastrar
             }else{
                 JOptionPane.showMessageDialog(null, "Senhas divergentes", "Error", JOptionPane.ERROR_MESSAGE);
             }
