@@ -29,8 +29,8 @@ public class Login extends JFrame {
 
 
     public Login() {
-        setSize(1200, 800); // largura e altura da janela
-        setMinimumSize(new Dimension(1200, 800)); // largura e altura minima da janela
+        setSize(1300, 800); // largura e altura da janela
+        setMinimumSize(new Dimension(1300, 800)); // largura e altura minima da janela
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // configurando o encerramento do programa ao fechar
         setLocationRelativeTo(null); // centraliza a janela
 
@@ -234,7 +234,7 @@ public class Login extends JFrame {
 
         // Criar uma nova janela
         JFrame JanelaInserirProduto = new JFrame("Incluir Produto");
-        JanelaInserirProduto.setSize(720, 480); // Define o tamanho da janela
+        JanelaInserirProduto.setSize(370, 400); // Define o tamanho da janela
         JanelaInserirProduto.setResizable(false);
         JanelaInserirProduto.getContentPane().setBackground(Color.WHITE); // Define a cor de fundo da janela
         JanelaInserirProduto.setLocationRelativeTo(null); // Centraliza a janela na tela

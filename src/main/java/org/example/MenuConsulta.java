@@ -27,18 +27,21 @@ public class MenuConsulta extends Login {
         painelConsulta.setBackground(Color.WHITE);
 
         botaoEstoque = new JButton("Estoque");
+        botaoEstoque.setFont(new Font("Roboto", Font.BOLD, 15));
         botaoEstoque.setPreferredSize(new Dimension(300, 40));
         botaoEstoque.setBorder(new LineBorder(new Color(234, 234, 234)));
         botaoEstoque.setBackground(new Color(234, 234, 234));
         botaoEstoque.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         botaoEntradas = new JButton("Entradas");
+        botaoEntradas.setFont(new Font("Roboto", Font.BOLD, 15));
         botaoEntradas.setPreferredSize(new Dimension(300, 40));
         botaoEntradas.setBorder(new LineBorder(new Color(234, 234, 234)));
         botaoEntradas.setBackground(new Color(234, 234, 234));
         botaoEntradas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         botaoSaidas = new JButton("Saidas");
+        botaoSaidas.setFont(new Font("Roboto", Font.BOLD, 15));
         botaoSaidas.setPreferredSize(new Dimension(300, 40));
         botaoSaidas.setBorder(new LineBorder(new Color(234, 234, 234)));
         botaoSaidas.setBackground(new Color(234, 234, 234));
@@ -48,7 +51,7 @@ public class MenuConsulta extends Login {
         botaoSair.setPreferredSize(new Dimension(100, 30));
         botaoSair.setBorder(new LineBorder(new Color(193, 193, 193)));
         botaoSair.setBackground(new Color(255, 255, 255));
-        botaoSair.setForeground(new Color(200, 200, 200));
+        botaoSair.setForeground(new Color(180, 180, 180));
         botaoSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         GridBagConstraints gbc = new GridBagConstraints();
