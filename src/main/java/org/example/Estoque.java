@@ -10,44 +10,50 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Estoque extends Login { // Mudando para JPanel
+public class Estoque extends Login {
     Login login;
     JButton botaoVoltar;
     JButton botaoIncluirEntrada;
-    JButton botaoincluirSaida;
+    JButton botaoIncluirSaida;
 
     JPanel painelSuperiorEstoque;
     JPanel painelTabelaEstoque;
 
     JLabel textoEstoque;
 
-
     JTable table;
+
     public Estoque(Login login) {
         this.login = login;
 
         // Criando modelo de tabela com colunas de ID, Nome e Email
-        String[] colunas = {"Código produto", "Produto", "Quantidade", "Valor", "Total"};
+        String[] colunas = {"Código produto", "Produto", "Quantidade", "Valor", "Valor Total"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-            String sql = "SELECT `IDPRODUTO`, `NOME_PRODUTO`, `QTD`, `PRECO`, `QTD` FROM `produto`;";
-            try (PreparedStatement statement = connection.prepareStatement(sql)) {//Coloca o SQL no terminal do Banco de dados
-                try (ResultSet resultSet = statement.executeQuery()) {//executa o SQL e captura o resultado
-                    while (resultSet.next()) {//percorre cada tupla do resultado
-                        String idproduto = resultSet.getString("IDPRODUTO");
-                        String nomeProduto = resultSet.getString("NOME_PRODUTO");
-                        String quantidadee = resultSet.getString("QTD");
-                        String preco = resultSet.getString("PRECO");
-                        String quantidade = resultSet.getString("QTD");
-
+            String sql = "SELECT " +
+                    "    PRODUTO.IDPRODUTO AS 'Código Produto'," +
+                    "    PRODUTO.NOME_PRODUTO AS 'Produto'," +
+                    "    PRODUTO.QTD AS 'Quantidade'," +
+                    "    ROUND(PRODUTO.PRECO, 2) AS 'Valor'," +
+                    "    ROUND((PRODUTO.QTD * PRODUTO.PRECO), 2) AS 'Valor Total'" +
+                    " FROM " +
+                    "    PRODUTO;";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        String idProduto = resultSet.getString("Código Produto");
+                        String nomeProduto = resultSet.getString("Produto");
+                        String quantidade = resultSet.getString("Quantidade");
+                        String preco = resultSet.getString("Valor");
+                        String valorTotal = resultSet.getString("Valor Total");
 
                         // Criar uma linha de dados
-                        Object[] linha = {idproduto, nomeProduto, quantidadee, preco, quantidade};
+                        Object[] linha = {idProduto, nomeProduto, quantidade, preco, valorTotal};
                         // Adicionar a linha ao modelo de tabela
                         model.addRow(linha);
 
-                        System.out.println("IDPRODUTO: " + idproduto + ",IDFORNECEDOR: " + nomeProduto + ",NOME_PRODUTO: " + quantidadee+ " QTD: "+preco+"qtd"+quantidade);//executa a saida no terminal
+                        System.out.println("IDPRODUTO: " + idProduto + ", Produto: " + nomeProduto + ", Quantidade: " + quantidade + ", Preço: " + preco + ", Valor Total: " + valorTotal);
                     }
                 }
             }
@@ -55,11 +61,11 @@ public class Estoque extends Login { // Mudando para JPanel
             JOptionPane.showMessageDialog(null, "Erro ao executar consulta: " + ex.getMessage());
         }
 
-
         // Criando a tabela com o modelo criado
         table = new JTable(model);
-        table.setEnabled(false);//bloqueia a tabela
-        table.setVisible(true);//Tabela invisivel
+        table.setEnabled(false);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        table.setVisible(true);
 
         // Adicionando a tabela a um painel de rolagem para permitir a rolagem caso a tabela seja muito grande
         JScrollPane scrollPane = new JScrollPane(table);
@@ -68,8 +74,6 @@ public class Estoque extends Login { // Mudando para JPanel
         // Adicionando o painel de rolagem à janela
         painelTabelaEstoque = new JPanel(new GridBagLayout());
         painelTabelaEstoque.setBackground(Color.white);
-
-
 
         painelSuperiorEstoque = new JPanel(new GridBagLayout());
         painelSuperiorEstoque.setBackground(Color.WHITE);
@@ -85,12 +89,12 @@ public class Estoque extends Login { // Mudando para JPanel
         botaoIncluirEntrada.setForeground(new Color(49, 66, 216));
         botaoIncluirEntrada.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        botaoincluirSaida = new JButton("Incluir Saída   - ");
-        botaoincluirSaida.setPreferredSize(new Dimension(120, 30));
-        botaoincluirSaida.setBorder(new LineBorder(new Color(49, 66, 216)));
-        botaoincluirSaida.setBackground(new Color(255, 255, 255));
-        botaoincluirSaida.setForeground(new Color(49, 66, 216));
-        botaoincluirSaida.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        botaoIncluirSaida = new JButton("Incluir Saída   - ");
+        botaoIncluirSaida.setPreferredSize(new Dimension(120, 30));
+        botaoIncluirSaida.setBorder(new LineBorder(new Color(49, 66, 216)));
+        botaoIncluirSaida.setBackground(new Color(255, 255, 255));
+        botaoIncluirSaida.setForeground(new Color(49, 66, 216));
+        botaoIncluirSaida.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         botaoVoltar = new JButton("<html><u>Voltar</u></html>");
         botaoVoltar.setPreferredSize(new Dimension(40, 30));
@@ -110,7 +114,7 @@ public class Estoque extends Login { // Mudando para JPanel
         painelSuperiorEstoque.add(botaoIncluirEntrada, gbc);
         gbc.gridy = 1;
         gbc.gridx = 1;
-        painelSuperiorEstoque.add(botaoincluirSaida, gbc);
+        painelSuperiorEstoque.add(botaoIncluirSaida, gbc);
         gbc.gridy = 0;
         gbc.gridx = 2;
         gbc.insets = new Insets(5, 200, 5, 5);
@@ -125,7 +129,7 @@ public class Estoque extends Login { // Mudando para JPanel
 
         botaoVoltar.addActionListener(this::Voltar);
         botaoIncluirEntrada.addActionListener(this::IncluirEntrada);
-        botaoincluirSaida.addActionListener(this::IncluirSaida);
+        botaoIncluirSaida.addActionListener(this::IncluirSaida);
     }
 
     public JPanel getPainelEstoque() {
@@ -142,7 +146,6 @@ public class Estoque extends Login { // Mudando para JPanel
     }
 
     public void Voltar(ActionEvent actionEvent) {
-        login.VoltarMenuConsulta();//
+        login.VoltarMenuConsulta();
     }
-
 }

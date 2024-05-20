@@ -234,7 +234,7 @@ public class Login extends JFrame {
 
         // Criar uma nova janela
         JFrame JanelaInserirProduto = new JFrame("Incluir Produto");
-        JanelaInserirProduto.setSize(370, 400); // Define o tamanho da janela
+        JanelaInserirProduto.setSize(350, 400); // Define o tamanho da janela
         JanelaInserirProduto.setResizable(false);
         JanelaInserirProduto.getContentPane().setBackground(Color.WHITE); // Define a cor de fundo da janela
         JanelaInserirProduto.setLocationRelativeTo(null); // Centraliza a janela na tela

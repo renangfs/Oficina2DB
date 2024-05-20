@@ -2,23 +2,22 @@ package org.example;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class IncluirEntrada extends Login{
     Login login;
     JPanel painelIncluirEntrada;
 
-    JTextField campoIDFornecedor;
-    JTextField campoNomeProduto;
+    JComboBox<String> campoIDFornecedor;
+    JComboBox<String> campoIDProduto;
     JTextField campoQuantidade;
     JTextField campoValor;
-    JTextField campoIdProduto;
     JTextField campoData;
 
     public IncluirEntrada(Login login) {
@@ -27,18 +26,25 @@ public class IncluirEntrada extends Login{
         painelIncluirEntrada = new JPanel(new GridBagLayout());
         painelIncluirEntrada.setBackground(Color.WHITE);
 
-
         JLabel textoIDFornecedor = new JLabel("ID do fornecedor:");
         textoIDFornecedor.setForeground(new Color(118, 118, 118));
         textoIDFornecedor.setFont(new Font("Roboto", Font.BOLD, 12));
-        campoIDFornecedor = new JTextField();
+        // Cria um Dropdown
+        String[] opCampoIDFuncionario = {"1", "2", "3", "4", "5"};
+        campoIDFornecedor = new JComboBox<>(opCampoIDFuncionario);
         campoIDFornecedor.setPreferredSize(new Dimension(200, 25));
+//        campoIDFornecedor = new JTextField();
+//        campoIDFornecedor.setPreferredSize(new Dimension(200, 25));
 
         JLabel textoNomeProduto = new JLabel("Nome do produto:");
         textoNomeProduto.setForeground(new Color(118, 118, 118));
         textoNomeProduto.setFont(new Font("Roboto", Font.BOLD, 12));
-        campoNomeProduto = new JTextField();
-        campoNomeProduto.setPreferredSize(new Dimension(200, 25));
+        // Cria um Dropdown
+        String[] opCampoIDProduto = {"1", "2", "3", "4", "5"};
+        campoIDProduto = new JComboBox<>(opCampoIDProduto);
+        campoIDProduto.setPreferredSize(new Dimension(200, 25));
+//        campoIDProduto = new JTextField();
+//        campoIDProduto.setPreferredSize(new Dimension(200, 25));
 
         JLabel textoQuantidade = new JLabel("Quantidade do produto:");
         textoQuantidade.setForeground(new Color(118, 118, 118));
@@ -52,23 +58,28 @@ public class IncluirEntrada extends Login{
         campoValor = new JTextField();
         campoValor.setPreferredSize(new Dimension(200, 25));
 
-        JLabel textoIdProduto = new JLabel("Código do produto:");
-        textoIdProduto.setForeground(new Color(118, 118, 118));
-        textoIdProduto.setFont(new Font("Roboto", Font.BOLD, 12));
-        campoIdProduto = new JTextField();
-        campoIdProduto.setPreferredSize(new Dimension(200, 25));
 
-        JLabel textoData = new JLabel("Data do produto:");
+        JLabel textoData = new JLabel("Data de entrada:");
         textoData.setForeground(new Color(118, 118, 118));
         textoData.setFont(new Font("Roboto", Font.BOLD, 12));
-        campoData = new JTextField();
+//        campoData = new JTextField();
+//        campoData.setPreferredSize(new Dimension(200, 25));
+
+        // Obter a data atual e formatá-la
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = today.format(formatter);
+
+        // Criar um campo de texto e definir a data atual
+        campoData = new JTextField(10);
         campoData.setPreferredSize(new Dimension(200, 25));
+        campoData.setText(formattedDate);
 
         JButton botaoIncluirProduto = new JButton("Incluir Produto");
         botaoIncluirProduto.setPreferredSize(new Dimension(120, 30));
-        botaoIncluirProduto.setBorder(new LineBorder(new Color(193, 193, 193)));
-        botaoIncluirProduto.setBackground(new Color(255, 255, 255));
-        botaoIncluirProduto.setForeground(new Color(200, 200, 200));
+        botaoIncluirProduto.setBorder(new LineBorder(new Color(0, 30, 253)));
+        botaoIncluirProduto.setBackground(new Color(0, 30, 253));
+        botaoIncluirProduto.setForeground(new Color(255, 255, 255));
         botaoIncluirProduto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         GridBagConstraints gbc = new GridBagConstraints(); // ajuda na posição dos componentes
@@ -85,7 +96,7 @@ public class IncluirEntrada extends Login{
         painelIncluirEntrada.add(textoNomeProduto, gbc);
         gbc.gridy = 3;
         gbc.gridx = 0;
-        painelIncluirEntrada.add(campoNomeProduto, gbc);
+        painelIncluirEntrada.add(campoIDProduto, gbc);
         gbc.gridy = 4;
         gbc.gridx = 0;
         painelIncluirEntrada.add(textoQuantidade, gbc);
@@ -98,10 +109,17 @@ public class IncluirEntrada extends Login{
         gbc.gridy = 7;
         gbc.gridx = 0;
         painelIncluirEntrada.add(campoValor, gbc);
-        gbc.insets = new Insets(20, 80, 2, 2);
         gbc.gridy = 8;
         gbc.gridx = 0;
+        painelIncluirEntrada.add(textoData, gbc);
+        gbc.gridy = 9;
+        gbc.gridx = 0;
+        painelIncluirEntrada.add(campoData, gbc);
+        gbc.gridy = 10;
+        gbc.gridx = 0;
+        gbc.insets = new Insets(20, 80, 2, 2);
         painelIncluirEntrada.add(botaoIncluirProduto, gbc);
+
 
         add(painelIncluirEntrada);
         botaoIncluirProduto.addActionListener(this::IncluirProduto);
@@ -110,15 +128,34 @@ public class IncluirEntrada extends Login{
     private void IncluirProduto(ActionEvent actionEvent) {
         System.out.println("Produto Incluido");
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-            String sql = "INSERT INTO PRODUTO (IDFORNECEDOR, NOME_PRODUTO, PRECO, QTD) VALUES (?,?,?,?);";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, Integer.parseInt(campoIDFornecedor.getText())); // IDFORNECEDOR é um inteiro
-            statement.setString(2, campoNomeProduto.getText());
-            statement.setDouble(3, Double.parseDouble(campoValor.getText())); // PRECO é um double
-            statement.setInt(4, Integer.parseInt(campoQuantidade.getText())); // QTD é um inteiro
-            int rowsAffected = statement.executeUpdate(); // Execute a query
-            if (rowsAffected > 0) {
+            // Primeiro PreparedStatement para inserir dados na tabela ENTRADA
+            String sqlInserirEntrada = "INSERT INTO ENTRADA (IDFUNCIONARIO, IDFORNECEDOR, IDPRODUTO, DATAENTRADA, VALORTOTAL) VALUES (1, ?, ?, ?, ?)";
+            PreparedStatement statementInserirEntrada = connection.prepareStatement(sqlInserirEntrada);
+            statementInserirEntrada.setInt(1, Integer.parseInt((String)campoIDFornecedor.getSelectedItem())); // IDFORNECEDOR é um inteiro
+            statementInserirEntrada.setInt(2, Integer.parseInt((String)campoIDProduto.getSelectedItem())); // ID produto
+            statementInserirEntrada.setString(3, campoData.getText()); // data entrada
+            // Calcula o valor total
+            double valorTotal = Double.parseDouble(campoValor.getText()) * Double.parseDouble(campoQuantidade.getText());
+            statementInserirEntrada.setDouble(4, valorTotal); // VALORTOTAL
+            int linhasAfetadasInserirEntrada = statementInserirEntrada.executeUpdate(); // Executa a primeira instrução SQL
+
+            // Segundo PreparedStatement para atualizar dados na tabela PRODUTO
+            String sqlAtualizarProduto = "UPDATE PRODUTO SET QTD = QTD + ?, PRECO = (PRECO * QTD + ?) / (QTD + ?) WHERE IDPRODUTO = ?";
+            PreparedStatement statementAtualizarProduto = connection.prepareStatement(sqlAtualizarProduto);
+            statementAtualizarProduto.setDouble(1, Double.parseDouble(campoQuantidade.getText())); // QTD
+            statementAtualizarProduto.setDouble(2, Double.parseDouble(campoValor.getText())); // PRECO
+            statementAtualizarProduto.setDouble(3, Double.parseDouble(campoQuantidade.getText())); // QTD para o cálculo de preço
+            statementAtualizarProduto.setInt(4, Integer.parseInt((String)campoIDProduto.getSelectedItem())); // ID produto
+            int linhasAfetadasAtualizarProduto = statementAtualizarProduto.executeUpdate(); // Executa a segunda instrução SQL
+
+            // Verifica se ambas as instruções foram executadas com sucesso
+            if (linhasAfetadasInserirEntrada > 0 && linhasAfetadasAtualizarProduto > 0) {
                 JOptionPane.showMessageDialog(null, "Produto inserido!");
+                login.Estoque(); // indo para a classe login...para ir para classe estoque
+                campoIDFornecedor.setSelectedIndex(0);
+                campoIDProduto.setSelectedIndex(0);
+                campoValor.setText("");
+                campoQuantidade.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao inserir o produto.");
             }
