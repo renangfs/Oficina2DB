@@ -142,9 +142,9 @@ public class IncluirEntrada extends Login{
             // Segundo PreparedStatement para atualizar dados na tabela PRODUTO
             String sqlAtualizarProduto = "UPDATE PRODUTO SET QTD = QTD + ?, PRECO = (PRECO * QTD + ?) / (QTD + ?) WHERE IDPRODUTO = ?";
             PreparedStatement statementAtualizarProduto = connection.prepareStatement(sqlAtualizarProduto);
-            statementAtualizarProduto.setDouble(1, Double.parseDouble(campoQuantidade.getText())); // QTD
+            statementAtualizarProduto.setInt(1, Integer.parseInt(campoQuantidade.getText())); // QTD
             statementAtualizarProduto.setDouble(2, Double.parseDouble(campoValor.getText())); // PRECO
-            statementAtualizarProduto.setDouble(3, Double.parseDouble(campoQuantidade.getText())); // QTD para o cálculo de preço
+            statementAtualizarProduto.setInt(3, Integer.parseInt(campoQuantidade.getText())); // QTD para o cálculo de preço
             statementAtualizarProduto.setInt(4, Integer.parseInt((String)campoIDProduto.getSelectedItem())); // ID produto
             int linhasAfetadasAtualizarProduto = statementAtualizarProduto.executeUpdate(); // Executa a segunda instrução SQL
 

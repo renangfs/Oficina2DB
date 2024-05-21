@@ -27,7 +27,7 @@ public class Estoque extends Login {
         this.login = login;
 
         // Criando modelo de tabela com colunas de ID, Nome e Email
-        String[] colunas = {"Código produto", "Produto", "Quantidade", "Valor", "Valor Total"};
+        String[] colunas = {"Código produto", "Produto", "Quantidade", "Valor Médio", "Valor Total"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
