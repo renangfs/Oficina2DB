@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class IncluirEntrada extends Login {
     Login login;
@@ -19,6 +20,7 @@ public class IncluirEntrada extends Login {
     JTextField campoQuantidade;
     JTextField campoValor;
     JTextField campoData;
+    int campoNomeparaID;
 
     public IncluirEntrada(Login login) {
         this.login = login;
@@ -38,7 +40,7 @@ public class IncluirEntrada extends Login {
         textoNomeProduto.setForeground(new Color(118, 118, 118));
         textoNomeProduto.setFont(new Font("Roboto", Font.BOLD, 12));
         // Cria um Dropdown
-        String[] opCampoIDProduto = {"1", "2", "3", "4", "5"};
+        String[] opCampoIDProduto = {"Produto A", "Produto B", "Produto C", "Produto D", "Produto E"};
         campoIDProduto = new JComboBox<>(opCampoIDProduto);
         campoIDProduto.setPreferredSize(new Dimension(200, 25));
 
@@ -119,13 +121,24 @@ public class IncluirEntrada extends Login {
 
     private void IncluirProduto(ActionEvent actionEvent) {
         System.out.println("Produto Incluido");
+        if(Objects.equals(campoIDProduto.getSelectedItem(),"Produto A")){
+            campoNomeparaID = 1;
+        }if(Objects.equals(campoIDProduto.getSelectedItem(),"Produto B")){
+            campoNomeparaID = 2;
+        }if(Objects.equals(campoIDProduto.getSelectedItem(),"Produto C")){
+            campoNomeparaID = 3;
+        }if(Objects.equals(campoIDProduto.getSelectedItem(),"Produto D")){
+            campoNomeparaID = 4;
+        }if(Objects.equals(campoIDProduto.getSelectedItem(),"Produto E")){
+            campoNomeparaID = 5;
+        }
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
             // Primeiro PreparedStatement para inserir dados na tabela ENTRADA
             String sqlInserirEntrada = "INSERT INTO ENTRADA (IDFUNCIONARIO, IDFORNECEDOR, IDPRODUTO, DATAENTRADA, VALORTOTAL) VALUES (1, ?, ?, ?, ?)";
             PreparedStatement statementInserirEntrada = connection.prepareStatement(sqlInserirEntrada);
             statementInserirEntrada.setInt(1, Integer.parseInt((String)campoIDFornecedor.getSelectedItem())); // IDFORNECEDOR é um inteiro
-            statementInserirEntrada.setInt(2, Integer.parseInt((String)campoIDProduto.getSelectedItem())); // ID produto
+            statementInserirEntrada.setInt(2, campoNomeparaID); // ID produto
             statementInserirEntrada.setString(3, campoData.getText()); // data entrada
             // Calcula o valor total
             double valorTotal = Double.parseDouble(campoValor.getText()) * Double.parseDouble(campoQuantidade.getText());
@@ -140,7 +153,7 @@ public class IncluirEntrada extends Login {
             statementAtualizarProduto.setInt(1, quantidade); // QTD
             statementAtualizarProduto.setInt(2, quantidade); // QTD again for the subtraction
             statementAtualizarProduto.setDouble(3, valorTotal); // Total value for recalculating average price
-            statementAtualizarProduto.setInt(4, Integer.parseInt((String)campoIDProduto.getSelectedItem())); // ID produto
+            statementAtualizarProduto.setInt(4, campoNomeparaID); // ID produto
             int linhasAfetadasAtualizarProduto = statementAtualizarProduto.executeUpdate(); // Executa a segunda instrução SQL
 
             // Verifica se ambas as instruções foram executadas com sucesso
