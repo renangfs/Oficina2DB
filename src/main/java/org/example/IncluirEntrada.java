@@ -135,7 +135,7 @@ public class IncluirEntrada extends Login {
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
             // Primeiro PreparedStatement para inserir dados na tabela ENTRADA
-            String sqlInserirEntrada = "INSERT INTO ENTRADA (IDFUNCIONARIO, IDFORNECEDOR, IDPRODUTO, DATAENTRADA, VALORTOTAL) VALUES (1, ?, ?, ?, ?)";
+            String sqlInserirEntrada = "INSERT INTO ENTRADA (IDFUNCIONARIO, IDFORNECEDOR, IDPRODUTO, DATAENTRADA, VALORTOTAL,PRECOENTRADA,QTDENTRADA) VALUES (1, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statementInserirEntrada = connection.prepareStatement(sqlInserirEntrada);
             statementInserirEntrada.setInt(1, Integer.parseInt((String)campoIDFornecedor.getSelectedItem())); // IDFORNECEDOR é um inteiro
             statementInserirEntrada.setInt(2, campoNomeparaID); // ID produto
@@ -143,6 +143,8 @@ public class IncluirEntrada extends Login {
             // Calcula o valor total
             double valorTotal = Double.parseDouble(campoValor.getText()) * Double.parseDouble(campoQuantidade.getText());
             statementInserirEntrada.setDouble(4, valorTotal); // VALORTOTAL
+            statementInserirEntrada.setDouble(5, Double.parseDouble(campoValor.getText()));
+            statementInserirEntrada.setInt(6, Integer.parseInt(campoQuantidade.getText()));
             int linhasAfetadasInserirEntrada = statementInserirEntrada.executeUpdate(); // Executa a primeira instrução SQL
 
             // Segundo PreparedStatement para atualizar dados na tabela PRODUTO

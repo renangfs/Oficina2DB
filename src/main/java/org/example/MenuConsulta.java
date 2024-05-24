@@ -87,12 +87,14 @@ public class MenuConsulta extends Login {
     }
 
     private void Estoque(ActionEvent actionEvent) {
-        login.Estoque();//indo para a classe login...para ir para classe estoque
+        login.Estoque();//indo para a classe login...para ir para classe Estoque
+        System.out.println("Clicando em Estoque");
     }
 
 
-    public void Entrada(ActionEvent e) {
-        System.out.println("Clicando em entrada");
+    public void Entrada(ActionEvent actionEvent) {
+        login.Entrada();//indo para a classe login...para ir para classe Entrada
+        System.out.println("Clicando em Entrada");
     }
 
     public void Saidas(ActionEvent e) {

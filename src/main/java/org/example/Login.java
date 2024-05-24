@@ -217,6 +217,17 @@ public class Login extends JFrame {
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
         repaint(); // Redesenha a janela
     }
+    public void Entrada() {
+        getContentPane().removeAll(); // Remove todos os componentes da janela
+        // Criar e adicionar os novos componentes à janela
+        Entrada entrada = new Entrada( this); // Passa a referência da instância de Login para Cadastro
+        JPanel PainelSuperiorEntrada = entrada.getPainelSuperiorEntrada(); // Obtém o painel do cadastro
+        add(PainelSuperiorEntrada, BorderLayout.CENTER); // Adiciona o painel do cadastro ao centro da janela
+        revalidate(); // Revalida o layout da janela após adicionar os novos componentes
+        repaint(); // Redesenha a janela
+    }
+
+
     public void VoltarMenuConsulta() {
         getContentPane().removeAll(); // Remove todos os componentes da janela
 
