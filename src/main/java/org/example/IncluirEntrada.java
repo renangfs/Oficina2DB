@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class IncluirEntrada extends Login{
+public class IncluirEntrada extends Login {
     Login login;
     JPanel painelIncluirEntrada;
 
@@ -33,8 +33,6 @@ public class IncluirEntrada extends Login{
         String[] opCampoIDFuncionario = {"1", "2", "3", "4", "5"};
         campoIDFornecedor = new JComboBox<>(opCampoIDFuncionario);
         campoIDFornecedor.setPreferredSize(new Dimension(200, 25));
-//        campoIDFornecedor = new JTextField();
-//        campoIDFornecedor.setPreferredSize(new Dimension(200, 25));
 
         JLabel textoNomeProduto = new JLabel("Nome do produto:");
         textoNomeProduto.setForeground(new Color(118, 118, 118));
@@ -43,8 +41,6 @@ public class IncluirEntrada extends Login{
         String[] opCampoIDProduto = {"1", "2", "3", "4", "5"};
         campoIDProduto = new JComboBox<>(opCampoIDProduto);
         campoIDProduto.setPreferredSize(new Dimension(200, 25));
-//        campoIDProduto = new JTextField();
-//        campoIDProduto.setPreferredSize(new Dimension(200, 25));
 
         JLabel textoQuantidade = new JLabel("Quantidade do produto:");
         textoQuantidade.setForeground(new Color(118, 118, 118));
@@ -58,12 +54,9 @@ public class IncluirEntrada extends Login{
         campoValor = new JTextField();
         campoValor.setPreferredSize(new Dimension(200, 25));
 
-
         JLabel textoData = new JLabel("Data de entrada:");
         textoData.setForeground(new Color(118, 118, 118));
         textoData.setFont(new Font("Roboto", Font.BOLD, 12));
-//        campoData = new JTextField();
-//        campoData.setPreferredSize(new Dimension(200, 25));
 
         // Obter a data atual e formatá-la
         LocalDate today = LocalDate.now();
@@ -120,13 +113,13 @@ public class IncluirEntrada extends Login{
         gbc.insets = new Insets(20, 80, 2, 2);
         painelIncluirEntrada.add(botaoIncluirProduto, gbc);
 
-
         add(painelIncluirEntrada);
         botaoIncluirProduto.addActionListener(this::IncluirProduto);
     }
 
     private void IncluirProduto(ActionEvent actionEvent) {
         System.out.println("Produto Incluido");
+
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
             // Primeiro PreparedStatement para inserir dados na tabela ENTRADA
             String sqlInserirEntrada = "INSERT INTO ENTRADA (IDFUNCIONARIO, IDFORNECEDOR, IDPRODUTO, DATAENTRADA, VALORTOTAL) VALUES (1, ?, ?, ?, ?)";
@@ -140,11 +133,13 @@ public class IncluirEntrada extends Login{
             int linhasAfetadasInserirEntrada = statementInserirEntrada.executeUpdate(); // Executa a primeira instrução SQL
 
             // Segundo PreparedStatement para atualizar dados na tabela PRODUTO
-            String sqlAtualizarProduto = "UPDATE PRODUTO SET QTD = QTD + ?, PRECO = (PRECO * QTD + ?) / (QTD + ?) WHERE IDPRODUTO = ?";
+            String sqlAtualizarProduto = "UPDATE PRODUTO SET QTD = QTD + ?, PRECO = (PRECO * (QTD - ?) + ?) / QTD WHERE IDPRODUTO = ?";
+            System.out.println("2" + valorTotal);
             PreparedStatement statementAtualizarProduto = connection.prepareStatement(sqlAtualizarProduto);
-            statementAtualizarProduto.setInt(1, Integer.parseInt(campoQuantidade.getText())); // QTD
-            statementAtualizarProduto.setDouble(2, Double.parseDouble(campoValor.getText())); // PRECO
-            statementAtualizarProduto.setInt(3, Integer.parseInt(campoQuantidade.getText())); // QTD para o cálculo de preço
+            int quantidade = Integer.parseInt(campoQuantidade.getText());
+            statementAtualizarProduto.setInt(1, quantidade); // QTD
+            statementAtualizarProduto.setInt(2, quantidade); // QTD again for the subtraction
+            statementAtualizarProduto.setDouble(3, valorTotal); // Total value for recalculating average price
             statementAtualizarProduto.setInt(4, Integer.parseInt((String)campoIDProduto.getSelectedItem())); // ID produto
             int linhasAfetadasAtualizarProduto = statementAtualizarProduto.executeUpdate(); // Executa a segunda instrução SQL
 
@@ -163,6 +158,7 @@ public class IncluirEntrada extends Login{
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto: " + ex.getMessage());
         }
     }
+
     public JPanel getPainelIncluirEntrada() {
         return painelIncluirEntrada;
     }
