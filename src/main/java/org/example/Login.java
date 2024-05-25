@@ -1,6 +1,5 @@
 package org.example;
 
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
@@ -11,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
-
 
 public class Login extends JFrame {
     JButton botaoEntrar;
@@ -27,6 +25,8 @@ public class Login extends JFrame {
     JTextField campoLogin;
     JTextField campoSenha;
 
+    public String usuarioLogado; // Campo para armazenar o nome do usuário logado
+    public int idLogado;
 
     public Login() {
         setSize(1300, 800); // largura e altura da janela
@@ -38,9 +38,6 @@ public class Login extends JFrame {
         painelLogo.setBackground(Color.WHITE);
         painelLogin = new JPanel(new GridBagLayout());
         painelLogin.setBackground(Color.WHITE);
-
-
-
 
         JLabel textoLogin = new JLabel("Login:");
         textoLogin.setForeground(new Color(118, 118, 118));
@@ -70,12 +67,11 @@ public class Login extends JFrame {
         botaoEntrar.setForeground(new Color(255, 255, 255));
         botaoEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-
         botaoCadastrar = new JButton("Cadastre-se");
         botaoCadastrar.setPreferredSize(new Dimension(300, 30));
-        botaoCadastrar.setForeground(new Color (118, 118, 118));
-        botaoCadastrar.setBackground(new Color (255, 255, 255));
-        botaoCadastrar.setBorder(new LineBorder(new Color (170, 170, 170)));
+        botaoCadastrar.setForeground(new Color(118, 118, 118));
+        botaoCadastrar.setBackground(new Color(255, 255, 255));
+        botaoCadastrar.setBorder(new LineBorder(new Color(170, 170, 170)));
         botaoCadastrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         GridBagConstraints gbc = new GridBagConstraints(); // ajuda na posição dos componentes
@@ -123,6 +119,7 @@ public class Login extends JFrame {
         painelLogin.add(botaoCadastrar, gbc);
 
         add(painelLogo);
+
         botaoEsqueciSenha.addActionListener(this::EsqueciSenha);
         botaoCadastrar.addActionListener(this::Cadastrar);
         botaoEntrar.addActionListener(this::Logar);
@@ -176,19 +173,30 @@ public class Login extends JFrame {
 
                         System.out.println("ID: " + idFuncionario + ", Login: " + login + ", SENHA: " + senha);//executa a saida no terminal
 
-                        System.out.println("Verificando Login: "+campoLogin.getText());
-                        System.out.println("Verificando Senha: "+campoSenha.getText());
+                        System.out.println("Verificando Login: " + campoLogin.getText());
+                        System.out.println("Verificando Senha: " + campoSenha.getText());
 
-                        if(Objects.equals(campoLogin.getText(),login)){ // Verifica se o campo login é igual a algum login existente
-                            if(Objects.equals(campoSenha.getText(),senha)){
-
-                                System.out.println(login+" entrou no sistema");
+                        if (Objects.equals(campoLogin.getText(), login)) { // Verifica se o campo login é igual a algum login existente
+                            if (Objects.equals(campoSenha.getText(), senha)) {
+                                usuarioLogado = login; // Define o nome do usuário logado ... quando acontecer a autentificação
+                                idLogado = Integer.parseInt(idFuncionario); // Define o nome do id logado ... quando acontecer a autentificação
+                                System.out.println(login + " entrou no sistema");
+                                System.out.println(idFuncionario + " ID do Funcionario");
 
                                 getContentPane().removeAll(); // Remove todos os componentes da janela
                                 MenuConsulta menuConsulta = new MenuConsulta(this); // Passa a referência da instância de Login para MenuConsulta
                                 JPanel painelMenuConsulta = menuConsulta.painelConsulta; // Obtém o painel do Consulta
-                                add(painelMenuConsulta, BorderLayout.CENTER); // Adiciona o painel do Consulta ao centro da janela
-                                revalidate(); // Revalide o layout da janela após adicionar os novos componentes
+                                add(painelMenuConsulta, BorderLayout.CENTER); // Adiciona o painel do MenuConsulta ao centro da janela
+
+                                // Painel do usuário logado
+                                JPanel painelUsuarioLogado = new JPanel(new BorderLayout());
+                                painelUsuarioLogado.setBackground(Color.WHITE);
+                                JLabel usuarioLabel = new JLabel("  Usuário: " + usuarioLogado);
+                                usuarioLabel.setFont(new Font("Roboto", Font.BOLD, 12));
+                                painelUsuarioLogado.add(usuarioLabel, BorderLayout.WEST);
+                                add(painelUsuarioLogado, BorderLayout.NORTH);
+
+                                revalidate(); // Revalida o layout da janela após adicionar os novos componentes
                                 repaint(); // Redesenha a janela
                                 JOptionPane.showMessageDialog(null, "Olá, "+login+"! Bom te ver novamente.");
                                 campoLogin.setText("");
@@ -208,12 +216,28 @@ public class Login extends JFrame {
         }
 
     }
+
+    public String getUsuarioLogado() {
+        return usuarioLogado;
+    }
+    public int getidLogado() {
+        return idLogado;
+    }
     public void Estoque() {
         getContentPane().removeAll(); // Remove todos os componentes da janela
         // Criar e adicionar os novos componentes à janela
         Estoque estoque = new Estoque( this); // Passa a referência da instância de Login para Cadastro
         JPanel painelEstoque = estoque.getPainelEstoque(); // Obtém o painel do cadastro
         add(painelEstoque, BorderLayout.CENTER); // Adiciona o painel do cadastro ao centro da janela
+
+        // Painel do usuário logado
+        JPanel painelUsuarioLogado = new JPanel(new BorderLayout());
+        painelUsuarioLogado.setBackground(Color.WHITE);
+        JLabel usuarioLabel = new JLabel("  Usuário: " + usuarioLogado);
+        usuarioLabel.setFont(new Font("Roboto", Font.BOLD, 12));
+        painelUsuarioLogado.add(usuarioLabel, BorderLayout.WEST);
+        add(painelUsuarioLogado, BorderLayout.NORTH);
+
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
         repaint(); // Redesenha a janela
     }
@@ -223,6 +247,15 @@ public class Login extends JFrame {
         Entrada entrada = new Entrada( this); // Passa a referência da instância de Login para Cadastro
         JPanel PainelSuperiorEntrada = entrada.getPainelSuperiorEntrada(); // Obtém o painel do cadastro
         add(PainelSuperiorEntrada, BorderLayout.CENTER); // Adiciona o painel do cadastro ao centro da janela
+
+        // Painel do usuário logado
+        JPanel painelUsuarioLogado = new JPanel(new BorderLayout());
+        painelUsuarioLogado.setBackground(Color.WHITE);
+        JLabel usuarioLabel = new JLabel("  Usuário: " + usuarioLogado);
+        usuarioLabel.setFont(new Font("Roboto", Font.BOLD, 12));
+        painelUsuarioLogado.add(usuarioLabel, BorderLayout.WEST);
+        add(painelUsuarioLogado, BorderLayout.NORTH);
+
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
         repaint(); // Redesenha a janela
     }
@@ -235,6 +268,14 @@ public class Login extends JFrame {
         JPanel painelMenuConsulta = menuConsulta.painelConsulta; // Obtém o painel do Consulta
         add(painelMenuConsulta, BorderLayout.CENTER); // Adiciona o painel do Consulta ao centro da janela
 
+        // Painel do usuário logado
+        JPanel painelUsuarioLogado = new JPanel(new BorderLayout());
+        painelUsuarioLogado.setBackground(Color.WHITE);
+        JLabel usuarioLabel = new JLabel("  Usuário: " + usuarioLogado);
+        usuarioLabel.setFont(new Font("Roboto", Font.BOLD, 12));
+        painelUsuarioLogado.add(usuarioLabel, BorderLayout.WEST);
+        add(painelUsuarioLogado, BorderLayout.NORTH);
+
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
         repaint(); // Redesenha a janela
     }
@@ -242,6 +283,7 @@ public class Login extends JFrame {
     public void IncluirEntrada() {
         IncluirEntrada incluirEntrada = new IncluirEntrada(this); // Passa a referência da instância de Login para Cadastro
         JPanel PainelIncluirEntrada = incluirEntrada.getPainelIncluirEntrada(); // Obtém o painel do cadastro
+        System.out.println( idLogado + " ID do Funcionario..");
 
         // Criar uma nova janela
         JFrame JanelaInserirProduto = new JFrame("Incluir Produto");
@@ -256,5 +298,6 @@ public class Login extends JFrame {
         JanelaInserirProduto.setVisible(true); // Torna a nova janela visível
 
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
+
     }
 }

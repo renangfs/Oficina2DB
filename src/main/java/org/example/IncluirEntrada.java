@@ -77,6 +77,7 @@ public class IncluirEntrada extends Login {
         botaoIncluirProduto.setForeground(new Color(255, 255, 255));
         botaoIncluirProduto.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
+
         GridBagConstraints gbc = new GridBagConstraints(); // ajuda na posição dos componentes
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         gbc.insets = new Insets(2, 2, 2, 2);
@@ -135,21 +136,22 @@ public class IncluirEntrada extends Login {
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
             // Primeiro PreparedStatement para inserir dados na tabela ENTRADA
-            String sqlInserirEntrada = "INSERT INTO ENTRADA (IDFUNCIONARIO, IDFORNECEDOR, IDPRODUTO, DATAENTRADA, VALORTOTAL,PRECOENTRADA,QTDENTRADA) VALUES (1, ?, ?, ?, ?, ?, ?)";
+            String sqlInserirEntrada = "INSERT INTO ENTRADA (IDFUNCIONARIO, IDFORNECEDOR, IDPRODUTO, DATAENTRADA, VALORTOTAL,PRECOENTRADA,QTDENTRADA) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statementInserirEntrada = connection.prepareStatement(sqlInserirEntrada);
-            statementInserirEntrada.setInt(1, Integer.parseInt((String)campoIDFornecedor.getSelectedItem())); // IDFORNECEDOR é um inteiro
-            statementInserirEntrada.setInt(2, campoNomeparaID); // ID produto
-            statementInserirEntrada.setString(3, campoData.getText()); // data entrada
+            System.out.println( login.getidLogado() + " ID do    Funcionario deu certo verdade");//Chat gpt quando eu tento pegar o idLogado ele da sempre 0 que tem de errado com meu código
+            statementInserirEntrada.setInt(1, login.getidLogado()); // IDFORNECEDOR é um inteiro
+            statementInserirEntrada.setInt(2, Integer.parseInt((String)campoIDFornecedor.getSelectedItem())); // IDFORNECEDOR é um inteiro
+            statementInserirEntrada.setInt(3, campoNomeparaID); // ID produto
+            statementInserirEntrada.setString(4, campoData.getText()); // data entrada
             // Calcula o valor total
             double valorTotal = Double.parseDouble(campoValor.getText()) * Double.parseDouble(campoQuantidade.getText());
-            statementInserirEntrada.setDouble(4, valorTotal); // VALORTOTAL
-            statementInserirEntrada.setDouble(5, Double.parseDouble(campoValor.getText()));
-            statementInserirEntrada.setInt(6, Integer.parseInt(campoQuantidade.getText()));
+            statementInserirEntrada.setDouble(5, valorTotal); // VALORTOTAL
+            statementInserirEntrada.setDouble(6, Double.parseDouble(campoValor.getText()));
+            statementInserirEntrada.setInt(7, Integer.parseInt(campoQuantidade.getText()));
             int linhasAfetadasInserirEntrada = statementInserirEntrada.executeUpdate(); // Executa a primeira instrução SQL
 
             // Segundo PreparedStatement para atualizar dados na tabela PRODUTO
             String sqlAtualizarProduto = "UPDATE PRODUTO SET QTD = QTD + ?, PRECO = (PRECO * (QTD - ?) + ?) / QTD WHERE IDPRODUTO = ?";
-            System.out.println("2" + valorTotal);
             PreparedStatement statementAtualizarProduto = connection.prepareStatement(sqlAtualizarProduto);
             int quantidade = Integer.parseInt(campoQuantidade.getText());
             statementAtualizarProduto.setInt(1, quantidade); // QTD

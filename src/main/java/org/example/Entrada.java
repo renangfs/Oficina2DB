@@ -125,7 +125,7 @@ public class Entrada extends Login {
 
 
     public void Voltar(ActionEvent actionEvent) {
-        login.VoltarMenuConsulta();
+       login.VoltarMenuConsulta();
     }
 }
 

@@ -15,6 +15,7 @@ public class MenuConsulta extends Login {
     JPanel painelConsulta;
 
     JLabel textoConsultar;
+    JLabel usuarioLogado;
 
     public MenuConsulta(Login login) {
         this.login = login;
@@ -77,7 +78,23 @@ public class MenuConsulta extends Login {
         gbc.gridy = 4;
         painelConsulta.add(botaoSair, gbc);
 
-        add(painelConsulta);
+        // Define o layout do MenuConsulta como BorderLayout
+        setLayout(new BorderLayout());
+        add(painelConsulta, BorderLayout.CENTER);
+
+        // Adicionar o JLabel para o nome do usuário logado
+        String nomeUsuario = "Usuário: " + login.getUsuarioLogado(); // Usando um método para obter o nome do usuário logado
+        usuarioLogado = new JLabel(nomeUsuario);
+        usuarioLogado.setFont(new Font("Roboto", Font.PLAIN, 12));
+        usuarioLogado.setForeground(new Color(0, 0, 0));
+
+        // Cria um painel para o JLabel do usuário logado
+        JPanel painelUsuario = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        painelUsuario.setBackground(Color.WHITE);
+        painelUsuario.add(usuarioLogado);
+
+        // Adiciona o painelUsuario ao topo da janela
+        add(painelUsuario, BorderLayout.NORTH);
 
         botaoEstoque.addActionListener(this::Estoque);
         botaoEntradas.addActionListener(this::Entrada);
