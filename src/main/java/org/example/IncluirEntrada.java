@@ -138,7 +138,7 @@ public class IncluirEntrada extends Login {
             // Primeiro PreparedStatement para inserir dados na tabela ENTRADA
             String sqlInserirEntrada = "INSERT INTO ENTRADA (IDFUNCIONARIO, IDFORNECEDOR, IDPRODUTO, DATAENTRADA, VALORTOTAL,PRECOENTRADA,QTDENTRADA) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statementInserirEntrada = connection.prepareStatement(sqlInserirEntrada);
-            System.out.println( login.getidLogado() + " ID do    Funcionario deu certo verdade");//Chat gpt quando eu tento pegar o idLogado ele da sempre 0 que tem de errado com meu código
+            System.out.println( login.getidLogado() + " teste ID do Funcionario ");//Chat gpt quando eu tento pegar o idLogado ele da sempre 0 que tem de errado com meu código
             statementInserirEntrada.setInt(1, login.getidLogado()); // IDFORNECEDOR é um inteiro
             statementInserirEntrada.setInt(2, Integer.parseInt((String)campoIDFornecedor.getSelectedItem())); // IDFORNECEDOR é um inteiro
             statementInserirEntrada.setInt(3, campoNomeparaID); // ID produto
