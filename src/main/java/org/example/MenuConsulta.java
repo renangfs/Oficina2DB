@@ -115,6 +115,7 @@ public class MenuConsulta extends Login {
     }
 
     public void Saidas(ActionEvent e) {
+        login.Saida();//indo para a classe login...para ir para classe Saida
         System.out.println("Clicando em saida");
     }
 

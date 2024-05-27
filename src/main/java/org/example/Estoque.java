@@ -143,6 +143,7 @@ public class Estoque extends Login {
 
     public void IncluirSaida(ActionEvent e) {
         System.out.println("Clicou em incluir Saida");
+        login.IncluirSaida();
     }
 
     public void Voltar(ActionEvent actionEvent) {

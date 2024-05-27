@@ -2,7 +2,6 @@ package org.example;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -20,7 +19,7 @@ public class Login extends JFrame {
     JLabel logo = new JLabel(image);
 
     JPanel painelLogo;
-    JPanel painelLogin;
+    JPanel painelRetirarProduto;
 
     JTextField campoLogin;
     JTextField campoSenha;
@@ -36,8 +35,8 @@ public class Login extends JFrame {
 
         painelLogo = new JPanel(new GridBagLayout());
         painelLogo.setBackground(Color.WHITE);
-        painelLogin = new JPanel(new GridBagLayout());
-        painelLogin.setBackground(Color.WHITE);
+        painelRetirarProduto = new JPanel(new GridBagLayout());
+        painelRetirarProduto.setBackground(Color.WHITE);
 
         JLabel textoLogin = new JLabel("Login:");
         textoLogin.setForeground(new Color(118, 118, 118));
@@ -87,36 +86,36 @@ public class Login extends JFrame {
         // Configurações para o painel de login
         gbc.gridy = 1;
         gbc.insets = new Insets(0, 0, 0, 0);
-        painelLogo.add(painelLogin, gbc);
+        painelLogo.add(painelRetirarProduto, gbc);
 
         gbc.anchor = GridBagConstraints.LINE_START;
         gbc.insets = new Insets(0, 5, 5, 5);
-        painelLogin.add(textoLogin, gbc);
+        painelRetirarProduto.add(textoLogin, gbc);
 
         gbc.gridy = 1;
         gbc.insets = new Insets(65, 5, 20, 5);
-        painelLogin.add(campoLogin, gbc);
+        painelRetirarProduto.add(campoLogin, gbc);
 
         gbc.gridy = 2;
         gbc.insets = new Insets(0, 5, 5, 5);
-        painelLogin.add(textoSenha, gbc);
+        painelRetirarProduto.add(textoSenha, gbc);
 
         gbc.gridy = 3;
-        painelLogin.add(campoSenha, gbc);
+        painelRetirarProduto.add(campoSenha, gbc);
 
         gbc.gridy = 4;
         gbc.insets = new Insets(0, 5, 20, 5);
         gbc.anchor = GridBagConstraints.LAST_LINE_END;
         gbc.fill = GridBagConstraints.VERTICAL;
-        painelLogin.add(botaoEsqueciSenha, gbc);
+        painelRetirarProduto.add(botaoEsqueciSenha, gbc);
 
         gbc.insets = new Insets(0, 5, 15, 5);
         gbc.gridy = 5;
         gbc.anchor = GridBagConstraints.CENTER;
-        painelLogin.add(botaoEntrar, gbc);
+        painelRetirarProduto.add(botaoEntrar, gbc);
 
         gbc.gridy = 6;
-        painelLogin.add(botaoCadastrar, gbc);
+        painelRetirarProduto.add(botaoCadastrar, gbc);
 
         add(painelLogo);
 
@@ -133,7 +132,7 @@ public class Login extends JFrame {
         add(painelLogo);
         gbc.gridy = 1;
         gbc.insets = new Insets(0, 0, 0, 0);
-        painelLogo.add(painelLogin, gbc);
+        painelLogo.add(painelRetirarProduto, gbc);
         add(painelLogo);
 
         revalidate(); // Revalida o layout da janela
@@ -259,6 +258,24 @@ public class Login extends JFrame {
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
         repaint(); // Redesenha a janela
     }
+    public void Saida() {
+        getContentPane().removeAll(); // Remove todos os componentes da janela
+        // Criar e adicionar os novos componentes à janela
+        Saida saida = new Saida( this); // Passa a referência da instância de Login para Cadastro
+        JPanel PainelSuperiorSaida = saida.getPainelSuperiorSaida(); // Obtém o painel do cadastro
+        add(PainelSuperiorSaida, BorderLayout.CENTER); // Adiciona o painel do cadastro ao centro da janela
+
+        // Painel do usuário logado
+        JPanel painelUsuarioLogado = new JPanel(new BorderLayout());
+        painelUsuarioLogado.setBackground(Color.WHITE);
+        JLabel usuarioLabel = new JLabel("  Usuário: " + usuarioLogado);
+        usuarioLabel.setFont(new Font("Roboto", Font.BOLD, 12));
+        painelUsuarioLogado.add(usuarioLabel, BorderLayout.WEST);
+        add(painelUsuarioLogado, BorderLayout.NORTH);
+
+        revalidate(); // Revalida o layout da janela após adicionar os novos componentes
+        repaint(); // Redesenha a janela
+    }
 
 
     public void VoltarMenuConsulta() {
@@ -286,8 +303,8 @@ public class Login extends JFrame {
         System.out.println( idLogado + " ID do Funcionario..");
 
         // Criar uma nova janela
-        JFrame JanelaInserirProduto = new JFrame("Incluir Produto");
-        JanelaInserirProduto.setSize(300, 400); // Define o tamanho da janela
+        JFrame JanelaInserirProduto = new JFrame("Entrada de produto");
+        JanelaInserirProduto.setSize(270, 380); // Define o tamanho da janela
         JanelaInserirProduto.setResizable(false);
         JanelaInserirProduto.getContentPane().setBackground(Color.WHITE); // Define a cor de fundo da janela
         JanelaInserirProduto.setLocationRelativeTo(null); // Centraliza a janela na tela
@@ -296,6 +313,26 @@ public class Login extends JFrame {
         JanelaInserirProduto.add(PainelIncluirEntrada, BorderLayout.CENTER); // Adiciona o painel do cadastro à nova janela
 
         JanelaInserirProduto.setVisible(true); // Torna a nova janela visível
+
+        revalidate(); // Revalida o layout da janela após adicionar os novos componentes
+
+    }
+    public void IncluirSaida() {
+        IncluirSaida incluirSaida = new IncluirSaida(this); // Passa a referência da instância de Login para Cadastro
+        JPanel PainelIncluirSaida = incluirSaida.getPainelIncluirSaida(); // Obtém o painel do cadastro
+        System.out.println( idLogado + " ID do Funcionario..");
+
+        // Criar uma nova janela
+        JFrame JanelaRetirarProduto = new JFrame("Saída de produto");
+        JanelaRetirarProduto.setSize(270, 320); // Define o tamanho da janela
+        JanelaRetirarProduto.setResizable(false);
+        JanelaRetirarProduto.getContentPane().setBackground(Color.WHITE); // Define a cor de fundo da janela
+        JanelaRetirarProduto.setLocationRelativeTo(null); // Centraliza a janela na tela
+        JanelaRetirarProduto.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Define o comportamento padrão ao fechar a janela
+
+        JanelaRetirarProduto.add(PainelIncluirSaida, BorderLayout.CENTER); // Adiciona o painel do cadastro à nova janela
+
+        JanelaRetirarProduto.setVisible(true); // Torna a nova janela visível
 
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
 

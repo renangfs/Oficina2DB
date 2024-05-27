@@ -25,7 +25,7 @@ public class Entrada extends Login {
         this.login = login;
 
         // Criando modelo de tabela com colunas de ID, Nome e Email
-        String[] colunas = {"Código entrada", "Fornecedor", "Nome Funcionário", "Nome Produto", "Quantidade", "Valor", "Valor Total", "Data entrada"};
+        String[] colunas = {"Código da entrada", "Fornecedor", "Nome Funcionário", "Nome Produto", "Quantidade", "Valor", "Valor Total", "Data da entrada"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
@@ -35,8 +35,8 @@ public class Entrada extends Login {
                     "    FN.NOME AS NOME_FUNCIONARIO," +
                     "    P.NOME_PRODUTO," +
                     "    E.QTDENTRADA," +
-                    "    E.PRECOENTRADA," +
-                    "    E.VALORTOTAL," +
+                    "    ROUND(E.PRECOENTRADA, 2) AS PRECO_ENTRADA, " +
+                    "    ROUND(E.VALORTOTAL, 2) AS VALOR_TOTAL, " +
                     "    E.DATAENTRADA " +
                     "FROM " +
                     "    ENTRADA E " +
@@ -51,8 +51,8 @@ public class Entrada extends Login {
                         String nomeFuncionario = resultSet.getString("NOME_FUNCIONARIO");
                         String nomeProduto = resultSet.getString("NOME_PRODUTO");
                         String quantidade = resultSet.getString("QTDENTRADA");
-                        String valor = resultSet.getString("PRECOENTRADA");
-                        String valorTotal = resultSet.getString("VALORTOTAL");
+                        String valor = resultSet.getString("PRECO_ENTRADA");
+                        String valorTotal = resultSet.getString("VALOR_TOTAL");
                         String dataEntrada = resultSet.getString("DATAENTRADA");
 
                         // Criar uma linha de dados
