@@ -27,7 +27,7 @@ public class Estoque extends Login {
         this.login = login;
 
         // Criando modelo de tabela com colunas de ID, Nome e Email
-        String[] colunas = {"Código produto", "Produto", "Quantidade", "Valor Médio", "Valor Total"};
+        String[] colunas = {"Código produto", "Produto", "Quantidade", "Valor médio", "Valor total", "Status"};
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
@@ -44,16 +44,27 @@ public class Estoque extends Login {
                     while (resultSet.next()) {
                         String idProduto = resultSet.getString("Código Produto");
                         String nomeProduto = resultSet.getString("Produto");
-                        String quantidade = resultSet.getString("Quantidade");
+                        int quantidade = resultSet.getInt("Quantidade");
                         String preco = resultSet.getString("Valor");
                         String valorTotal = resultSet.getString("Valor Total");
 
+                        String status;
+                        // Verifica a quantidade e define o status do estoque
+                        if (quantidade < 30) {//Estoque Crítico
+                            status = "<html><span style='font-size: 30px; color: #DB4437;'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &bull;</span></html>";
+                        } else if (quantidade >= 30 && quantidade < 80) {//Estoque Moderado
+                            status = "<html><span style='font-size: 30px; color: #F4B400;'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &bull;</span></html>";
+                        } else {//Estoque Cheio
+                            status = "<html><span style='font-size: 30px; color: #0F9D58;'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &bull;</span></html>";
+                        }
+
+
                         // Criar uma linha de dados
-                        Object[] linha = {idProduto, nomeProduto, quantidade, preco, valorTotal};
+                        Object[] linha = {idProduto, nomeProduto, quantidade, preco, valorTotal, status};
                         // Adicionar a linha ao modelo de tabela
                         model.addRow(linha);
 
-                        System.out.println("IDPRODUTO: " + idProduto + ", Produto: " + nomeProduto + ", Quantidade: " + quantidade + ", Preço: " + preco + ", Valor Total: " + valorTotal);
+                        System.out.println("IDPRODUTO: " + idProduto + ", Produto: " + nomeProduto + ", Quantidade: " + quantidade + ", Preço: " + preco + ", Valor Total: " + valorTotal + "Status: " + status);
                     }
                 }
             }
