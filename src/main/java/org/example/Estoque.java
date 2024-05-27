@@ -80,7 +80,7 @@ public class Estoque extends Login {
 
         // Adicionando a tabela a um painel de rolagem para permitir a rolagem caso a tabela seja muito grande
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(1000, 450));
+        scrollPane.setPreferredSize(new Dimension(1000, 420));
 
         // Adicionando o painel de rolagem à janela
         painelTabelaEstoque = new JPanel(new GridBagLayout());
