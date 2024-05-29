@@ -33,6 +33,10 @@ public class Login extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // configurando o encerramento do programa ao fechar
         setLocationRelativeTo(null); // centraliza a janela
 
+        // Configuração do ícone da janela
+        ImageIcon icone = new ImageIcon("C:/Users/renan/OneDrive/Área de Trabalho/Oficina2DB/src/main/java/org/example/icoGota.png");
+        setIconImage(icone.getImage());
+
         painelLogo = new JPanel(new GridBagLayout());
         painelLogo.setBackground(Color.WHITE);
         painelRetirarProduto = new JPanel(new GridBagLayout());
