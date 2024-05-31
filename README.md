@@ -4,9 +4,6 @@ Durante um projeto extensivo na faculdade Estácio, participei de uma iniciativa
 
 ![Sistema de Controle de Estoque](https://github.com/renangfs/Oficina2DB/assets/61218420/5ac2fa59-d1da-4692-b787-55d6859e63f3)
 ## Funcionalidades do Sistema
-
-1. **Registro de Produtos:**
-    - O sistema permite o cadastro detalhado de cada peça ou produto, incluindo:
         - Cadastrar
         - Logar 
         - Alterar senha
