@@ -3,19 +3,20 @@
 Durante um projeto extensivo na faculdade Estácio, participei de uma iniciativa colaborativa para desenvolver um sistema de controle de estoque específico para uma oficina mecânica. O objetivo principal deste sistema é gerenciar de forma eficiente o inventário de peças e produtos, garantindo que os itens estejam sempre disponíveis quando necessário, evitando a falta de estoque. Além disso, o sistema inclui uma coluna para mostrar o status do produto, sinalizando a quantidade disponível no estoque.
 
 ![Sistema de Controle de Estoque](https://github.com/renangfs/Oficina2DB/assets/61218420/5ac2fa59-d1da-4692-b787-55d6859e63f3)
-1.**Funcionalidades do Sistema**
-    - Cadastrar
-    - Logar 
-    - Alterar senha
-    - Visualizar produto
-    - Registrar entrada
-    - Registrar saida
 
-2. **Controle de Saída de Estoque:**
-    - Sempre que os funcionários repõem produtos na área de vendas da oficina, a quantidade correspondente é reduzida no sistema, gerando um registro de saída do estoque. Isso garante que o inventário esteja sempre atualizado e facilitando o rastreio de cada produto.
+## Funcionalidades do Sistema
+- **Cadastrar**
+- **Logar**
+- **Alterar Senha**
+- **Visualizar Produto**
+- **Registrar Entrada**
+- **Registrar Saída**
 
-3. **Alerta de Reabastecimento:**
-    - O sistema apresenta uma coluna que exibe o status do produto. Nessa coluna, a cor vermelha indica um estoque baixo, a cor amarela representa um estoque moderado e a cor verde indica um estoque cheio. Essas cores indicam visualmente a quantidade disponível de cada produto no estoque em tempo real.
+## Controle de Saída de Estoque:
+Sempre que os funcionários repõem produtos na área de vendas da oficina, a quantidade correspondente é reduzida no sistema, gerando um registro de saída do estoque. Isso garante que o inventário esteja sempre atualizado e facilitando o rastreio de cada produto.
+
+## Alerta de Reabastecimento:
+O sistema apresenta uma coluna que exibe o status do produto. Nessa coluna, a cor vermelha indica um estoque baixo, a cor amarela representa um estoque moderado e a cor verde indica um estoque cheio. Essas cores indicam visualmente a quantidade disponível de cada produto no estoque em tempo real.
 
 ## Benefícios do Sistema
 
