@@ -4,12 +4,12 @@ Durante um projeto extensivo na faculdade Estácio, participei de uma iniciativa
 
 ![Sistema de Controle de Estoque](https://github.com/renangfs/Oficina2DB/assets/61218420/5ac2fa59-d1da-4692-b787-55d6859e63f3)
 1.**Funcionalidades do Sistema**
-        - Cadastrar
-        - Logar 
-        - Alterar senha
-        - Visualizar produto
-        - Registrar entrada
-        - Registrar saida
+    - Cadastrar
+    - Logar 
+    - Alterar senha
+    - Visualizar produto
+    - Registrar entrada
+    - Registrar saida
 
 2. **Controle de Saída de Estoque:**
     - Sempre que os funcionários repõem produtos na área de vendas da oficina, a quantidade correspondente é reduzida no sistema, gerando um registro de saída do estoque. Isso garante que o inventário esteja sempre atualizado e facilitando o rastreio de cada produto.
