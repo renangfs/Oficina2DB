@@ -7,10 +7,12 @@ Durante um projeto extensivo na faculdade Estácio, participei de uma iniciativa
 
 1. **Registro de Produtos:**
     - O sistema permite o cadastro detalhado de cada peça ou produto, incluindo:
-        - Código do produto
-        - Nome do produto
-        - Quantidade em estoque
-        - Valor unitário
+        - Cadastrar
+        - Logar 
+        - Alterar senha
+        - Visualizar produto
+        - Registrar entrada
+        - Registrar saida
 
 2. **Controle de Saída de Estoque:**
     - Sempre que os funcionários repõem produtos na área de vendas da oficina, a quantidade correspondente é reduzida no sistema, gerando um registro de saída do estoque. Isso garante que o inventário esteja sempre atualizado e facilitando o rastreio de cada produto.
