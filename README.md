@@ -1,4 +1,4 @@
-# Descrição do Projeto: Sistema de Controle de Estoque para Oficina
+## Descrição do Projeto: Sistema de Controle de Estoque para Oficina
 
 Durante um projeto extensivo na faculdade Estácio, participei de uma iniciativa colaborativa para desenvolver um sistema de controle de estoque específico para uma oficina mecânica. O objetivo principal deste sistema é gerenciar de forma eficiente o inventário de peças e produtos, garantindo que os itens estejam sempre disponíveis quando necessário, evitando a falta de estoque. Além disso, o sistema inclui uma coluna para mostrar o status do produto, sinalizando a quantidade disponível no estoque.
 
