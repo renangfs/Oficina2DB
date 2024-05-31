@@ -29,4 +29,3 @@ O sistema apresenta uma coluna que exibe o status do produto. Nessa coluna, a co
 - **Economia de Tempo:**
     - O sistema centraliza todas as informações relevantes, permitindo uma consulta rápida e fácil, o que reduz o tempo gasto em tarefas de gerenciamento de estoque.
 
-Este projeto colaborativo não apenas aprimorou nossas habilidades técnicas e de trabalho em equipe, mas também proporcionou uma solução prática e funcional para uma necessidade real do mercado.
