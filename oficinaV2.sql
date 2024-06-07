@@ -83,7 +83,7 @@ INSERT INTO FUNCIONARIO (NOME, CPF, EMAIL, TELEFONE, LOGIN, SENHA) VALUES
 ('Funcionario D', '44444444444', 'funcD@example.com', '4444444444', 'loginD', 'senhaD'),
 ('Funcionario E', '55555555555', 'funcE@example.com', '5555555555', 'loginE', 'senhaE');
 
--- Inserindo registros na tab        ela PRODUTO
+-- Inserindo registros na tabela PRODUTO
 INSERT INTO PRODUTO (NOME_PRODUTO, PRECO, QTD) VALUES
 ('Produto A', 0, 0),
 ('Produto B', 0, 0),
