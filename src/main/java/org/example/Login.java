@@ -166,7 +166,7 @@ public class Login extends JFrame {
         boolean continuar = true;
         // Capturando ID,login e Nome no banco de dados
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-            String sql = "SELECT IDFUNCIONARIO, LOGIN, SENHA FROM funcionario";
+            String sql = "SELECT IDFUNCIONARIO, LOGIN, SENHA FROM FUNCIONARIO";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {//Coloca o SQL no terminal do Banco de dados
                 try (ResultSet resultSet = statement.executeQuery()) {//executa o SQL e captura o resultado
                     while (resultSet.next() && continuar) {//percorre cada tupla do resultado
@@ -336,7 +336,7 @@ public class Login extends JFrame {
 
         JanelaRetirarProduto.add(PainelIncluirSaida, BorderLayout.CENTER); // Adiciona o painel do cadastro à nova janela
 
-        JanelaRetirarProduto.setVisible(true); // Torna a nova janela visível
+        JanelaRetirarProduto.setVisible(true); // Torna visível a janela retirar produtos
 
         revalidate(); // Revalida o layout da janela após adicionar os novos componentes
 

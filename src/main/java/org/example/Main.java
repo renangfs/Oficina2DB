@@ -16,7 +16,7 @@ public class Main{
 //
 //            MenuConsulta menuConsulta = new MenuConsulta(this);
 //            menuConsulta.setVisible(true);
-//            Logo logo = new Logo(); teste de imagem
+//            Logo logo = new Logo(); teste de imagem.
 //            logo.setVisible(true);
         });
     }

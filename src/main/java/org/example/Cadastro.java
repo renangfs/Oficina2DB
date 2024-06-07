@@ -231,7 +231,7 @@ public class Cadastro{
     }
     public void Cadastrar(ActionEvent e) {
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-            String sql = "INSERT INTO `funcionario`(`NOME`, `CPF`, `EMAIL`, `TELEFONE`, `LOGIN`, `SENHA`) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO FUNCIONARIO (`NOME`, `CPF`, `EMAIL`, `TELEFONE`, `LOGIN`, `SENHA`) VALUES (?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, campoNome.getText());
             statement.setString(2, campoCPF.getText());

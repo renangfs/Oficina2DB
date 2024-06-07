@@ -34,7 +34,7 @@ public class EsqueciSenha {
         DefaultTableModel model = new DefaultTableModel(colunas, 0);
 
         try (Connection connection = ConnectionFactory.recuperarConexao()) {
-            String sql = "SELECT IDFUNCIONARIO, LOGIN, NOME FROM funcionario";
+            String sql = "SELECT IDFUNCIONARIO, LOGIN, NOME FROM FUNCIONARIO";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {//Coloca o SQL no terminal do Banco de dados
                 try (ResultSet resultSet = statement.executeQuery()) {//executa o SQL e captura o resultado
                     while (resultSet.next()) {//percorre cada tupla do resultado
